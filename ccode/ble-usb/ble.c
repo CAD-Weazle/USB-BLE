@@ -29,7 +29,7 @@ char    ble_buf[BLE_INBUF_LEN];             // BLE Central response buffer lengt
 
 // BLE Jig data handling
 uint16_t ble_num = 0;                       // BLE Jig now being polled
-//b_state  ble_state[BLE_NUMJIGS];            // BLE Jig data storage
+//b_state  ble_state[BLE_NUMJIGS];          // BLE Jig data storage
 m_state  ble_state[BLE_NUMMOIST];           // BLE MOISTER data storage
 
 // flags
@@ -63,10 +63,6 @@ void ble_init_state (m_state bs[])
 //strcpy (bs[0].mac, "F732DE559A74");  // FJIG01
 //strcpy (bs[1].mac, "E1B7D94940FD");  // FJIG02
 //strcpy (bs[2].mac, "DAC8F9C0EEB9");  // FJIG03
-
-//strcpy (bs[0].mac, "E1B7D94940FD");  // FJIG02 <> hangt random, lurk?
-
-//strcpy (bs[0].mac, "DAC8F9C0EEB9");  // FJIG03 <> hangt ook random, is wat
 
   strcpy (bs[0].mac, "F64EEED59FD2");  // MOISTER proto 
 

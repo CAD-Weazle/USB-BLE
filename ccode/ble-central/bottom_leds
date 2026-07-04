@@ -1,0 +1,170 @@
+25aa040.c:    ts->panel = TFT_MONITOR;
+25aa040.c:    ts->watering = 0;
+25aa040.c:    ts->rlen[0] = 50;  
+25aa040.c:    ts->rlen[1] = 50;  
+25aa040.c:    ts->rlen[2] = 50;  
+25aa040.c:    ts->ilen[0] = 100;  
+25aa040.c:    ts->ilen[1] = 100;  
+25aa040.c:    ts->ilen[2] = 100;  
+25aa040.c:    ts->tlen[0] = 25200;  
+25aa040.c:    ts->tlen[1] = 68400;  
+25aa040.c:    ts->store = 0;  
+25aa040.c:    ts->wtime_sel = 0;  
+25aa040.c:    ts->wtime_len = 0;  
+25aa040.c:    ts->wtime_day = 0;  
+25aa040.c:    ts->wtime_pos = 7200;  
+25aa040.c:    ts->pid_setpoint[0] = 34832;
+25aa040.c:    ts->pid_setpoint[1] = 34832;
+25aa040.c:    ts->pid_setpoint[2] = 34832;
+25aa040.c:    ts->pid_active[0] = 0;
+25aa040.c:    ts->pid_active[1] = 0;
+25aa040.c:    ts->pid_active[2] = 0;
+25aa040.c:    ts->bottom_leds[0] = 0;
+25aa040.c:    ts->bottom_leds[1] = 0;
+25aa040.c:    ts->bottom_leds[2] = 0;
+25aa040.c:    ts->fan_speed[0] = 0;
+25aa040.c:    ts->fan_speed[1] = 0;
+25aa040.c:    ts->fan_speed[2] = 0;
+25aa040.c:  ts->store = 0;            
+pump.c:  ts->watering = 1;
+pump.c:  ts->watering = 0;
+pump.c:  if (ts->wtime_sel == ts->wtime_day)
+pump.c:    if ((ms->tsecs == ts->wtime_pos) || (ms->tsecs == ts->wtime_pos-1)) // against clock jitter
+pump.c:  debug (PUMP_DEBUG, "sel: %d len: %d day: %d pos: %ld - time: %ld\n", ts->wtime_sel, ts->wtime_len, 
+pump.c:                                                                     ts->wtime_day, ts->wtime_pos,
+sunweb-master.c://hb_set_temp (0x21, ts->pid_setpoint[0]);  // <> wrong format
+sunweb-master.c://hb_set_temp (0x22, ts->pid_setpoint[1]);
+sunweb-master.c://hb_set_temp (0x23, ts->pid_setpoint[2]);
+sunweb-master.c:  hb_set_led  (0x21, ts->bottom_leds[0]);
+sunweb-master.c:  hb_set_led  (0x22, ts->bottom_leds[1]);
+sunweb-master.c:  hb_set_led  (0x23, ts->bottom_leds[2]);
+tft-hotbed.c:    gb[i].hb_tset = (220 + 5*((ts->pid_setpoint[i] - 8960)/2488)) * 10;
+tft-hotbed.c:  pump_set_start (ts->wtime_pos);
+tft-hotbed.c:  if (!ts->store)
+tft-hotbed.c:    if (ts->pid_active[i])
+tft-hotbed.c:    phi = (float)(2*M_PI*ts->pid_setpoint[i])/65535;
+tft-hotbed.c:    if (ts->bottom_leds[i])
+tft-hotbed.c:    if (ts->fan_speed[i] == 0)
+tft-hotbed.c:    if (ts->fan_speed[i] >= 2)
+tft-hotbed.c:    if (ts->fan_speed[i] == 3)
+tft-hotbed.c:  eve_cmd_write (VERTEX2F ((XO+XB-1)*16,                (YO-YB-1 + ts->wtime_day*YP)*16));
+tft-hotbed.c:  eve_cmd_write (VERTEX2F ((XO+XB+1+(ms->tsecs/TF))*16, (YO+YB+1 + ts->wtime_day*YP)*16));
+tft-hotbed.c:  for (int i = 0; i < ts->wtime_day; i++)
+tft-hotbed.c:  eve_cmd_write (VERTEX2F ((XO+XB + (ts->wtime_pos/TF)-10)*16, (YO-20 + ts->wtime_sel*YP)*16));
+tft-hotbed.c:  eve_cmd_write (VERTEX2F ((XO+XB + (ts->wtime_pos/TF)+10)*16, (YO+20 + ts->wtime_sel*YP)*16));
+tft-hotbed.c:  uint16_t whrs = ts->wtime_pos/(60*60);
+tft-hotbed.c:  uint16_t wmin = (ts->wtime_pos - whrs*60*60) / 60;
+tft-hotbed.c:  eve_cmd_text ((XO+6 + ts->wtime_pos/TF), (YO-44 + ts->wtime_sel*YP), 23, 0, eve_buf);
+tft-hotbed.c:    if ((i == ts->wtime_sel) && (i <= ts->wtime_len)) // only active days can be selected
+tft-hotbed.c:    if (i <= ts->wtime_len)
+tft-simsun.c:  if (!ts->store)
+tft-simsun.c:    eve_cmd_write (VERTEX2F (SS_LBAR_XF + (ts->rlen[i]*SS_LBAR_WF)/100, SS_LBAR_YF + i*SS_LBAR_PF + SS_LBAR_HF));  
+tft-simsun.c:    eve_cmd_write (VERTEX2F (SS_LBAR_XF + (ts->ilen[i]*SS_IBAR_WF)/300, SS_IBAR_YF + i*SS_LBAR_PF + SS_LBAR_HF + SS_IBAR_HF));  
+tft-simsun.c:    sprintf (eve_buf, "%d%%", ts->rlen[i]); 
+tft-simsun.c:    sprintf (eve_buf, "%d%%", 100 - ts->rlen[i]); 
+tft-simsun.c:    sprintf (eve_buf, "PAR %d", ts->ilen[i]); 
+tft-simsun.c:  uint16_t hrs =  ts->tlen[DAWN] / (60*60);           // calculate hours from seconds
+tft-simsun.c:  uint16_t min = (ts->tlen[DAWN] - hrs*60*60) / 60;   // calculate minutes from seconds
+tft-simsun.c:  eve_cmd_write (VERTEX2F (SS_TBAR_XF + (ts->tlen[DAWN]*SS_LBAR_WF)/(24*60*60), SS_TBAR_YF + NUM_GBOXES*SS_IBAR_PF));  
+tft-simsun.c:  eve_cmd_write (VERTEX2F (SS_TBAR_XF + (ts->tlen[DUSK]*SS_LBAR_WF)/(24*60*60), SS_TBAR_YF + NUM_GBOXES*SS_IBAR_PF + SS_TBAR_HF));  
+tft-simsun.c:  if (ts->tlen[DUSK] == 24*60*60)
+tft-simsun.c:    ts->tlen[DUSK] -= 15*60;  // set dawn back 15 minutes
+tft-simsun.c:  hrs =  ts->tlen[DUSK] / (60*60);
+tft-simsun.c:  min = (ts->tlen[DUSK] - hrs*60*60) / 60;
+tft-simsun.c:  hrs = (ts->tlen[DUSK] - ts->tlen[DAWN]) / (60*60);
+tft-simsun.c:  min = (ts->tlen[DUSK] - ts->tlen[DAWN] - hrs*60*60) / 60;
+tft.c://ts->panel = TFT_MONITOR;  // start with Monitor
+tft.c:  ts->panel = TFT_HOTBED;  // <> dev only, remove later
+tft.c:      ts->rlen[0] = slider_lbar - slider_lbar%5;
+tft.c:      ts->rlen[1] = slider_lbar - slider_lbar%5;
+tft.c:      ts->rlen[2] = slider_lbar - slider_lbar%5;
+tft.c:      ts->ilen[0] = slider_ibar - slider_ibar%10;
+tft.c:      ts->ilen[1] = slider_ibar - slider_ibar%10;
+tft.c:      ts->ilen[2] = slider_ibar - slider_ibar%10;
+tft.c:      if (slider_tbar < ((ts->tlen[DAWN] + ts->tlen[DUSK])/2))
+tft.c:        ts->tlen[DAWN] = slider_tbar - slider_tbar%900;  // dawn with increments of 15 [min]
+tft.c:        ts->tlen[DUSK] = slider_tbar - slider_tbar%900;  // dusk with increments of 15 [min]
+tft.c:      printf ("tlen[0]: %ld (0x%08lx) tlen[1]: %ld (0x%08lx)\n", ts->tlen[DAWN], ts->tlen[DAWN], 
+tft.c:                                                                 ts->tlen[DUSK], ts->tlen[DUSK]);
+tft.c:      ts->wtime_sel = 0;
+tft.c:      ts->wtime_sel = 1;
+tft.c:      ts->wtime_sel = 2;
+tft.c:      ts->wtime_len = 0;
+tft.c:      ts->wtime_len = 1;
+tft.c:      ts->wtime_len = 2;
+tft.c:      if (ts->wtime_sel == 0)
+tft.c:        ts->wtime_pos = (track_pos*10000)/7585;
+tft.c:        ts->wtime_pos = ts->wtime_pos - ts->wtime_pos%900;  // 15 minute increments
+tft.c:      if (ts->wtime_sel == 1)
+tft.c:        ts->wtime_pos = (track_pos*10000)/7585;
+tft.c:        ts->wtime_pos = ts->wtime_pos - ts->wtime_pos%900;  // 15 minute increments
+tft.c:      if (ts->wtime_sel == 2)
+tft.c:        ts->wtime_pos = (track_pos*10000)/7585;
+tft.c:        ts->wtime_pos = ts->wtime_pos - ts->wtime_pos%900;  // 15 minute increments
+tft.c:        ts->pid_active[0] = (ts->pid_active[0] ? 0 : 1);
+tft.c:        ts->pid_active[1] = (ts->pid_active[1] ? 0 : 1);
+tft.c:        ts->pid_active[2] = (ts->pid_active[2] ? 0 : 1);
+tft.c:        ts->bottom_leds[0] = (ts->bottom_leds[0] ? 0 : HB_LED_INTENSITY);
+tft.c:        ts->bottom_leds[1] = (ts->bottom_leds[1] ? 0 : HB_LED_INTENSITY);
+tft.c:        ts->bottom_leds[2] = (ts->bottom_leds[2] ? 0 : HB_LED_INTENSITY);
+tft.c:        ts->fan_speed[0] = ((ts->fan_speed[0] == 1) ? 0 : 1);
+tft.c:        ts->fan_speed[0] = ((ts->fan_speed[0] == 2) ? 0 : 2);
+tft.c:        ts->fan_speed[0] = ((ts->fan_speed[0] == 3) ? 0 : 3);
+tft.c:        ts->fan_speed[1] = ((ts->fan_speed[1] == 1) ? 0 : 1);
+tft.c:        ts->fan_speed[1] = ((ts->fan_speed[1] == 2) ? 0 : 2);
+tft.c:        ts->fan_speed[1] = ((ts->fan_speed[1] == 3) ? 0 : 3);
+tft.c:        ts->fan_speed[2] = ((ts->fan_speed[2] == 1) ? 0 : 1);
+tft.c:        ts->fan_speed[2] = ((ts->fan_speed[2] == 2) ? 0 : 2);
+tft.c:        ts->fan_speed[2] = ((ts->fan_speed[2] == 3) ? 0 : 3);
+tft.c:      ts->pid_setpoint[0] = track_pos;
+tft.c:      ts->pid_setpoint[0] = ts->pid_setpoint[0] - ts->pid_setpoint[0]%2488; // per 0.5 oC 'click'
+tft.c:      if (ts->pid_setpoint[0] < 8960)
+tft.c:        ts->pid_setpoint[0] = 8960;
+tft.c:      if (ts->pid_setpoint[0] > (65536 - (8960/2)))
+tft.c:        ts->pid_setpoint[0] = 65536 - (8960/2);
+tft.c:      gb[0].hb_tset = (220 + 5*((ts->pid_setpoint[0] - 8960)/2488)) * 10;  
+tft.c:      ts->pid_setpoint[1] = track_pos;
+tft.c:      ts->pid_setpoint[1] = ts->pid_setpoint[1] - ts->pid_setpoint[1]%2488; // per 0.5 oC 'click'
+tft.c:      if (ts->pid_setpoint[1] < 8960)
+tft.c:        ts->pid_setpoint[1] = 8960;
+tft.c:      if (ts->pid_setpoint[1] > (65536 - (8960/2)))
+tft.c:        ts->pid_setpoint[1] = 65536 - (8960/2);
+tft.c:      gb[1].hb_tset = (220 + 5*((ts->pid_setpoint[1] - 8960)/2488)) * 10;
+tft.c:      ts->pid_setpoint[2] = track_pos;
+tft.c:      ts->pid_setpoint[2] = ts->pid_setpoint[2] - ts->pid_setpoint[2]%2488; // per 0.5 oC 'click'
+tft.c:      if (ts->pid_setpoint[2] < 8960)
+tft.c:        ts->pid_setpoint[2] = 8960;
+tft.c:      if (ts->pid_setpoint[2] > (65536 - (8960/2)))
+tft.c:        ts->pid_setpoint[2] = 65536 - (8960/2);
+tft.c:      gb[2].hb_tset = (220 + 5*((ts->pid_setpoint[2] - 8960)/2488)) * 10;
+tft.c:  if (ts->wtime_sel > ts->wtime_len)
+tft.c:    ts->wtime_sel = ts->wtime_len;
+tft.c:      if (ts->panel < 2)
+tft.c:        ts->panel++;
+tft.c:        ts->panel = 0;
+tft.c:      ts->store = 0; 
+tft.c:      if (ts->panel > 0)
+tft.c:        ts->panel--;
+tft.c:        ts->panel = 2;
+tft.c:      ts->store = 0; 
+tft.c:      ts->store = 1; 
+tft.c:      ts->store = 0;  // clear flag, stop displaying window
+tft.c:      ts->store = 0;  // clear flag, stop displaying window
+tft.c:  switch (ts->panel)
+tft.c:  if (!ts->watering)
+tft.c:      ts->wtime_day++;
+tft.c:      if (ts->wtime_day > ts->wtime_len)
+tft.c:        ts->wtime_day = 0;
+tft.c:  printf ("panel    : %d\n", ts->panel);                                    // current TFT panel being diplayed 
+tft.c:  printf ("rlen     : %d %d %d\n", ts->rlen[0], ts->rlen[1], ts->rlen[2]);  // LED light red/blu mixture [0..100%]
+tft.c:  printf ("ilen     : %d %d %d\n", ts->ilen[0], ts->ilen[1], ts->ilen[2]);  // lenght of intensity bar [0..300PAR]
+tft.c:  printf ("tlen     : %ld %ld\n",  ts->tlen[0], ts->tlen[1]);               // dawn & dusk in [s] (0..24*60*60)
+tft.c:  printf ("store    : %d\n"      , ts->store);                              // store/retreive button pressed
+tft.c:  printf ("wtime_sel: %d\n",  ts->wtime_sel);                               // water timer select day to water
+tft.c:  printf ("wtime_len: %d\n",  ts->wtime_len);                               // water timer program lenght in [days]
+tft.c:  printf ("wtime_day: %d\n",  ts->wtime_day);                               // water timer current day
+tft.c:  printf ("wtime_pos: %ld\n", ts->wtime_pos);                               // water timer slider
+tft.c:  printf ("pid_setpoint: %d %d %d\n",  ts->pid_setpoint[0], ts->pid_setpoint[1], ts->pid_setpoint[2]); // PID heater setpoint rotary slider (0..65535)
+tft.c:  printf ("pid_active  : %d %d %d\n",  ts->pid_active[0], ts->pid_active[1], ts->pid_active[2]);       // PID heater control on/off         (note: Master state only, not SunWeb state)
+tft.c:  printf ("bottom_leds : %d %d %d\n",  ts->bottom_leds[0], ts->bottom_leds[1], ts->bottom_leds[2]);    // bottom LEDs control on/off        (note: Master state only, not SunWeb state)
+tft.c:  printf ("fan_speed   : %d %d %d\n",  ts->fan_speed[0], ts->fan_speed[1], ts->fan_speed[2]);          // fan speed control off/min/mid/max {note: Master state only, not SunWeb state)

@@ -1,0 +1,127 @@
+# sources
+CSRC += main.c
+CSRC += pll.c 
+CSRC += ports.c
+CSRC += timer.c
+CSRC += uart1.c
+CSRC += uart4.c
+CSRC += spi.c
+CSRC += i2c.c
+CSRC += adc.c
+CSRC += dac.c
+CSRC += cli.c
+CSRC += printf.c
+CSRC += dump.c
+CSRC += ec.c
+CSRC += ntc.c
+CSRC += ph.c
+CSRC += ds3234.c
+CSRC += 25aa040.c
+CSRC += tft.c
+CSRC += scd30.c
+CSRC += bus-handler.c
+CSRC += sunweb-master.c
+CSRC += commands-master.c
+CSRC += commands-hotbed.c
+CSRC += commands-simsun.c
+CSRC += ./cmath/powten.c ./cmath/atof.c ./cmath/dtoa.c 
+
+# project name
+TARGET=sunweb-master
+
+###################################################
+
+CCPATH  = d:/gcc/bin/
+CC      = $(CCPATH)arm-none-eabi-gcc
+OBJCOPY = $(CCPATH)arm-none-eabi-objcopy
+OBJDUMP = $(CCPATH)arm-none-eabi-objdump
+SIZE    = $(CCPATH)arm-none-eabi-size
+
+#-include Make.local  #???
+
+LDSCRIPT = STM32F407VG_FLASH.ld
+
+CFLAGS  = -std=gnu99 -g -O2 -Wall -T$(LDSCRIPT)
+CFLAGS += -mlittle-endian -mthumb -mthumb-interwork -nostartfiles -mcpu=cortex-m4
+CFLAGS += -fsingle-precision-constant 
+CFLAGS += -mfloat-abi=soft
+#CFLAGS += -mfpu=fpv4-sp-d16 -mfloat-abi=hard
+CFLAGS += -fno-builtin-malloc
+CFLAGS += $(DEFINES)
+
+GENDEPFLAGS = -MD -MP -MF .dep/$(@F).d
+
+###################################################
+
+vpath %.c src
+vpath %.a lib
+
+ROOT=$(shell pwd)
+
+#CFLAGS += -I. 
+CFLAGS += -Iinc 
+CFLAGS += -Iinc/core
+
+AFLAGS = -Iinc
+
+#LDFLAGS = -Lplatform/MCU/STM32F4xx/GCC/
+
+# add startup file to build
+ASRC += core/startup_stm32f4xx.S
+
+OBJS = $(CSRC:.c=.o) $(ASRC:.S=.o)
+
+###################################################
+
+.PHONY: lib proj tags
+
+ELF = $(TARGET).elf
+HEX = $(TARGET).hex
+DIS = $(TARGET).dis
+IMG = $(TARGET).img
+
+all: proj
+
+proj: $(ELF) $(DIS) $(HEX)
+
+$(DIS): $(ELF)
+	$(OBJDUMP) -d $(ELF) > $(DIS)
+
+$(HEX): $(ELF)
+	$(OBJCOPY) -O ihex --set-start=0 $(ELF) $(HEX)
+
+$(ELF): $(OBJS) $(LDSCRIPT)
+#	$(CC) $(LDFLAGS) $(GENDEPFLAGS) $(CFLAGS) $(OBJS) -o $@ -lm -Wl,-Map=$(TARGET).map
+	$(CC) $(GENDEPFLAGS) $(CFLAGS) $(OBJS) -o $@ -lm -Wl,-Map=$(TARGET).map
+
+%.o: %.c
+	@echo $(CC) $<
+	$(CC) $(CFLAGS) $(GENDEPFLAGS) -c $< -o $@ 
+
+%.o: %.S
+	@echo $(CC) $<
+	$(CC) $(AFLAGS) -c $< -o $@ 
+
+clean:
+	rm -f *.o
+	rm -f $(ELF) 
+	rm -f $(DIS)
+	rm -f $(TARGET).bin
+	rm -f $(TARGET).map
+	rm -f $(TARGET).hex
+	rm -f .dep/*
+
+list:
+	@echo
+	@echo C sources
+	@echo $(CSRC)
+	@echo
+	@echo ASM sources
+	@echo $(ASRC)
+	@echo
+	@echo Objects
+	@echo $(OBJS)
+
+
+-include $(shell mkdir .dep 2>/dev/null) $(wildcard .dep/*)
+
