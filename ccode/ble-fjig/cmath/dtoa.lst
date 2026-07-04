@@ -1,0 +1,527 @@
+   1              		.syntax unified
+   2              		.cpu cortex-m3
+   3              		.fpu softvfp
+   4              		.eabi_attribute 20, 1
+   5              		.eabi_attribute 21, 1
+   6              		.eabi_attribute 23, 3
+   7              		.eabi_attribute 24, 1
+   8              		.eabi_attribute 25, 1
+   9              		.eabi_attribute 26, 1
+  10              		.eabi_attribute 30, 4
+  11              		.eabi_attribute 34, 1
+  12              		.eabi_attribute 18, 4
+  13              		.thumb
+  14              		.file	"dtoa.c"
+  15              		.text
+  16              	.Ltext0:
+  17              		.cfi_sections	.debug_frame
+  18              		.global	__aeabi_dcmplt
+  19              		.global	__aeabi_dcmpeq
+  20              		.global	__aeabi_dmul
+  21              		.global	__aeabi_ddiv
+  22              		.global	__aeabi_dadd
+  23              		.global	__aeabi_dcmpge
+  24              		.global	__aeabi_dsub
+  25              		.global	__aeabi_d2iz
+  26              		.align	1
+  27              		.global	dtoa
+  28              		.thumb
+  29              		.thumb_func
+  31              	dtoa:
+  32              	.LFB0:
+  33              		.file 1 "cmath/dtoa.c"
+   1:cmath/dtoa.c  **** /*
+   2:cmath/dtoa.c  ****  *  dtoa.c
+   3:cmath/dtoa.c  ****  */
+   4:cmath/dtoa.c  **** 
+   5:cmath/dtoa.c  **** #include <math.h>
+   6:cmath/dtoa.c  **** #include "dtoa.h"
+   7:cmath/dtoa.c  **** 
+   8:cmath/dtoa.c  **** #define PZERO 38		/* index of 1e0 in powten[]	*/
+   9:cmath/dtoa.c  **** #define PMAX 76			/* highest index in powten[]	*/
+  10:cmath/dtoa.c  **** #define SIGFIGS 18		/* number of significant digits in double */
+  11:cmath/dtoa.c  **** 
+  12:cmath/dtoa.c  **** extern const double powten[];
+  13:cmath/dtoa.c  **** 
+  14:cmath/dtoa.c  **** void dtoa( char *buff, char conv, int bsize, int dplace, double value  )
+  15:cmath/dtoa.c  **** {
+  34              		.loc 1 15 0
+  35              		.cfi_startproc
+  36              		@ args = 8, pretend = 0, frame = 16
+  37              		@ frame_needed = 0, uses_anonymous_args = 0
+  38              	.LVL0:
+  39 0000 2DE9F04F 		push	{r4, r5, r6, r7, r8, r9, sl, fp, lr}
+  40              	.LCFI0:
+  41              		.cfi_def_cfa_offset 36
+  42              		.cfi_offset 4, -36
+  43              		.cfi_offset 5, -32
+  44              		.cfi_offset 6, -28
+  45              		.cfi_offset 7, -24
+  46              		.cfi_offset 8, -20
+  47              		.cfi_offset 9, -16
+  48              		.cfi_offset 10, -12
+  49              		.cfi_offset 11, -8
+  50              		.cfi_offset 14, -4
+  51 0004 85B0     		sub	sp, sp, #20
+  52              	.LCFI1:
+  53              		.cfi_def_cfa_offset 56
+  54              		.loc 1 15 0
+  55 0006 0E9D     		ldr	r5, [sp, #56]
+  56 0008 0F9F     		ldr	r7, [sp, #60]
+  57 000a 8046     		mov	r8, r0
+  58 000c 8946     		mov	r9, r1
+  59 000e 1646     		mov	r6, r2
+  16:cmath/dtoa.c  ****     double v;
+  17:cmath/dtoa.c  ****     int i, imax, j, exp, ndigits, nlead;
+  18:cmath/dtoa.c  **** 
+  19:cmath/dtoa.c  ****     /* set default value of dplace */
+  20:cmath/dtoa.c  ****     if( dplace < 0 )
+  21:cmath/dtoa.c  **** 	dplace = 6;
+  60              		.loc 1 21 0
+  61 0010 33EA230B 		bics	fp, r3, r3, asr #32
+  62 0014 28BF     		it	cs
+  63 0016 4FF0060B 		movcs	fp, #6
+  64              	.LVL1:
+  22:cmath/dtoa.c  **** 
+  23:cmath/dtoa.c  ****     /* strip off sign */
+  24:cmath/dtoa.c  ****     if( value < 0.0 )
+  65              		.loc 1 24 0
+  66 001a 2846     		mov	r0, r5
+  67              	.LVL2:
+  68 001c 3946     		mov	r1, r7
+  69              	.LVL3:
+  70 001e 0022     		movs	r2, #0
+  71              	.LVL4:
+  72 0020 0023     		movs	r3, #0
+  73 0022 FFF7FEFF 		bl	__aeabi_dcmplt
+  74              	.LVL5:
+  75 0026 20B1     		cbz	r0, .L3
+  25:cmath/dtoa.c  ****     {
+  26:cmath/dtoa.c  **** 	value = -value;
+  27:cmath/dtoa.c  **** 	*buff++ = '-';
+  76              		.loc 1 27 0
+  77 0028 2D23     		movs	r3, #45
+  26:cmath/dtoa.c  **** 	value = -value;
+  78              		.loc 1 26 0
+  79 002a 07F10047 		add	r7, r7, #-2147483648
+  80              	.LVL6:
+  81              		.loc 1 27 0
+  82 002e 08F8013B 		strb	r3, [r8], #1
+  83              	.LVL7:
+  84              	.L3:
+  28:cmath/dtoa.c  ****     }
+  29:cmath/dtoa.c  **** 
+  30:cmath/dtoa.c  ****     /* scale and compute no of leading digits */
+  31:cmath/dtoa.c  ****     if( value == 0.0 )
+  85              		.loc 1 31 0
+  86 0032 2846     		mov	r0, r5
+  87 0034 3946     		mov	r1, r7
+  88 0036 0022     		movs	r2, #0
+  89 0038 0023     		movs	r3, #0
+  90 003a FFF7FEFF 		bl	__aeabi_dcmpeq
+  91              	.LVL8:
+  92 003e 98B9     		cbnz	r0, .L25
+  93 0040 DFF8BCA1 		ldr	sl, .L41+12
+  94 0044 4C24     		movs	r4, #76
+  95 0046 05E0     		b	.L6
+  96              	.LVL9:
+  97              	.L9:
+  32:cmath/dtoa.c  **** 	imax = PZERO;
+  33:cmath/dtoa.c  ****     else for( imax = PMAX; value < powten[imax] && imax > 0; imax--) 
+  34:cmath/dtoa.c  ****     {
+  35:cmath/dtoa.c  **** 	if( conv == 'f' && imax <= PZERO )
+  98              		.loc 1 35 0
+  99 0048 B9F1660F 		cmp	r9, #102
+ 100 004c 01D1     		bne	.L7
+ 101              		.loc 1 35 0 is_stmt 0 discriminator 1
+ 102 004e 262C     		cmp	r4, #38
+ 103 0050 0BDD     		ble	.L5
+ 104              	.L7:
+  33:cmath/dtoa.c  ****     else for( imax = PMAX; value < powten[imax] && imax > 0; imax--) 
+ 105              		.loc 1 33 0 is_stmt 1
+ 106 0052 013C     		subs	r4, r4, #1
+ 107              	.LVL10:
+ 108              	.L6:
+  33:cmath/dtoa.c  ****     else for( imax = PMAX; value < powten[imax] && imax > 0; imax--) 
+ 109              		.loc 1 33 0 is_stmt 0 discriminator 1
+ 110 0054 2846     		mov	r0, r5
+ 111 0056 3946     		mov	r1, r7
+ 112 0058 7AE90223 		ldrd	r2, [sl, #-8]!
+ 113 005c FFF7FEFF 		bl	__aeabi_dcmplt
+ 114              	.LVL11:
+ 115 0060 18B1     		cbz	r0, .L5
+  33:cmath/dtoa.c  ****     else for( imax = PMAX; value < powten[imax] && imax > 0; imax--) 
+ 116              		.loc 1 33 0 discriminator 2
+ 117 0062 002C     		cmp	r4, #0
+ 118 0064 F0D1     		bne	.L9
+ 119 0066 00E0     		b	.L5
+ 120              	.LVL12:
+ 121              	.L25:
+  32:cmath/dtoa.c  **** 	imax = PZERO;
+ 122              		.loc 1 32 0 is_stmt 1
+ 123 0068 2624     		movs	r4, #38
+ 124              	.L5:
+ 125              	.LVL13:
+  36:cmath/dtoa.c  **** 	    break;
+  37:cmath/dtoa.c  ****     }
+  38:cmath/dtoa.c  ****     exp = imax - PZERO;
+  39:cmath/dtoa.c  ****     nlead = exp + 1;
+  40:cmath/dtoa.c  **** 
+  41:cmath/dtoa.c  ****     /* decide if 'g' goes to 'e' or 'f' */
+  42:cmath/dtoa.c  ****     if( conv == 'g') 
+ 126              		.loc 1 42 0
+ 127 006a B9F1670F 		cmp	r9, #103
+  38:cmath/dtoa.c  ****     exp = imax - PZERO;
+ 128              		.loc 1 38 0
+ 129 006e A4F1260A 		sub	sl, r4, #38
+ 130              	.LVL14:
+  39:cmath/dtoa.c  ****     nlead = exp + 1;
+ 131              		.loc 1 39 0
+ 132 0072 A4F1250C 		sub	ip, r4, #37
+ 133              	.LVL15:
+ 134              		.loc 1 42 0
+ 135 0076 04D1     		bne	.L10
+  43:cmath/dtoa.c  ****     {
+  44:cmath/dtoa.c  **** 	if( nlead > 6 )
+ 136              		.loc 1 44 0
+ 137 0078 BCF1060F 		cmp	ip, #6
+ 138 007c 00F3A880 		bgt	.L40
+ 139 0080 03E0     		b	.L12
+ 140              	.L10:
+ 141              	.LVL16:
+  45:cmath/dtoa.c  **** 	    conv = 'e';
+  46:cmath/dtoa.c  **** 	else
+  47:cmath/dtoa.c  **** 	    conv = 'f';
+  48:cmath/dtoa.c  ****     }
+  49:cmath/dtoa.c  **** 
+  50:cmath/dtoa.c  ****     /* compute no of digits to print */
+  51:cmath/dtoa.c  ****     /* change 'f' to 'e' if insufficient space for result */
+  52:cmath/dtoa.c  ****     if( conv == 'f') 
+ 142              		.loc 1 52 0
+ 143 0082 B9F1660F 		cmp	r9, #102
+ 144 0086 40F0A580 		bne	.L11
+ 145              	.LVL17:
+ 146              	.L12:
+  53:cmath/dtoa.c  ****     {
+  54:cmath/dtoa.c  **** 	ndigits = dplace + nlead;
+ 147              		.loc 1 54 0
+ 148 008a E344     		add	fp, fp, ip
+ 149              	.LVL18:
+  55:cmath/dtoa.c  **** 	if( ndigits + 3 > bsize) 
+ 150              		.loc 1 55 0
+ 151 008c 0BF10203 		add	r3, fp, #2
+ 152 0090 B342     		cmp	r3, r6
+ 153 0092 80F29B80 		bge	.L27
+ 154 0096 4FF06609 		mov	r9, #102
+ 155 009a 17E0     		b	.L13
+ 156              	.LVL19:
+ 157              	.L23:
+  56:cmath/dtoa.c  **** 	{
+  57:cmath/dtoa.c  **** 	    conv = 'e';
+  58:cmath/dtoa.c  **** 	    dplace = SIGFIGS;
+  59:cmath/dtoa.c  **** 	}
+  60:cmath/dtoa.c  ****     }
+  61:cmath/dtoa.c  ****     if( conv != 'f') 
+  62:cmath/dtoa.c  ****     {
+  63:cmath/dtoa.c  **** 	nlead  = 1;
+  64:cmath/dtoa.c  **** 	ndigits = dplace + nlead;
+  65:cmath/dtoa.c  **** 	if( ndigits > SIGFIGS )
+  66:cmath/dtoa.c  **** 	    ndigits = SIGFIGS;
+  67:cmath/dtoa.c  ****     }
+  68:cmath/dtoa.c  **** 
+  69:cmath/dtoa.c  ****     /* scale to range 1.0 - 10.0 and round up */
+  70:cmath/dtoa.c  ****     if( conv == 'e' && imax == 0 && value < powten[0]) 
+ 158              		.loc 1 70 0 discriminator 1
+ 159 009c A4B9     		cbnz	r4, .L37
+ 160 009e 554B     		ldr	r3, .L41
+ 161 00a0 2846     		mov	r0, r5
+ 162 00a2 3946     		mov	r1, r7
+ 163 00a4 D3E90023 		ldrd	r2, [r3]
+ 164 00a8 FFF7FEFF 		bl	__aeabi_dcmplt
+ 165              	.LVL20:
+ 166 00ac 60B1     		cbz	r0, .L37
+  71:cmath/dtoa.c  ****     {
+  72:cmath/dtoa.c  **** 	value *= 10.0;
+ 167              		.loc 1 72 0
+ 168 00ae 2846     		mov	r0, r5
+ 169 00b0 3946     		mov	r1, r7
+ 170 00b2 0022     		movs	r2, #0
+ 171 00b4 504B     		ldr	r3, .L41+4
+ 172 00b6 FFF7FEFF 		bl	__aeabi_dmul
+ 173              	.LVL21:
+  73:cmath/dtoa.c  **** 	exp--;
+ 174              		.loc 1 73 0
+ 175 00ba 6FF0260A 		mvn	sl, #38
+ 176              	.LVL22:
+  72:cmath/dtoa.c  **** 	value *= 10.0;
+ 177              		.loc 1 72 0
+ 178 00be 0546     		mov	r5, r0
+ 179              	.LVL23:
+ 180 00c0 0F46     		mov	r7, r1
+ 181              	.LVL24:
+ 182 00c2 4FF0010C 		mov	ip, #1
+ 183 00c6 01E0     		b	.L13
+ 184              	.LVL25:
+ 185              	.L37:
+  70:cmath/dtoa.c  ****     if( conv == 'e' && imax == 0 && value < powten[0]) 
+ 186              		.loc 1 70 0
+ 187 00c8 4FF0010C 		mov	ip, #1
+ 188              	.LVL26:
+ 189              	.L13:
+  74:cmath/dtoa.c  ****     }
+  75:cmath/dtoa.c  ****     value = value / powten[imax] + 0.5 * powten[PZERO - ndigits + 1];
+ 190              		.loc 1 75 0
+ 191 00cc 494E     		ldr	r6, .L41
+ 192              	.LVL27:
+ 193 00ce 2846     		mov	r0, r5
+ 194 00d0 06EBC404 		add	r4, r6, r4, lsl #3
+ 195              	.LVL28:
+ 196 00d4 D4E90023 		ldrd	r2, [r4]
+ 197 00d8 3946     		mov	r1, r7
+ 198 00da CDF804C0 		str	ip, [sp, #4]
+ 199 00de FFF7FEFF 		bl	__aeabi_ddiv
+ 200              	.LVL29:
+ 201 00e2 CBF12703 		rsb	r3, fp, #39
+ 202 00e6 06EBC306 		add	r6, r6, r3, lsl #3
+ 203 00ea 0446     		mov	r4, r0
+ 204 00ec 0D46     		mov	r5, r1
+ 205              	.LVL30:
+ 206 00ee 0022     		movs	r2, #0
+ 207 00f0 D6E90001 		ldrd	r0, [r6]
+ 208 00f4 414B     		ldr	r3, .L41+8
+ 209 00f6 FFF7FEFF 		bl	__aeabi_dmul
+ 210              	.LVL31:
+ 211 00fa 0B46     		mov	r3, r1
+ 212 00fc 0246     		mov	r2, r0
+ 213 00fe 2946     		mov	r1, r5
+ 214 0100 2046     		mov	r0, r4
+ 215 0102 FFF7FEFF 		bl	__aeabi_dadd
+ 216              	.LVL32:
+  76:cmath/dtoa.c  ****     value = modf(value, &v);
+ 217              		.loc 1 76 0
+ 218 0106 02AA     		add	r2, sp, #8
+ 219 0108 FFF7FEFF 		bl	modf
+ 220              	.LVL33:
+  77:cmath/dtoa.c  ****     if( v >= 10.0) 
+ 221              		.loc 1 77 0
+ 222 010c DDE90267 		ldrd	r6, [sp, #8]
+  76:cmath/dtoa.c  ****     value = modf(value, &v);
+ 223              		.loc 1 76 0
+ 224 0110 0446     		mov	r4, r0
+ 225 0112 0D46     		mov	r5, r1
+ 226              	.LVL34:
+ 227              		.loc 1 77 0
+ 228 0114 3046     		mov	r0, r6
+ 229 0116 3946     		mov	r1, r7
+ 230 0118 0022     		movs	r2, #0
+ 231 011a 374B     		ldr	r3, .L41+4
+ 232 011c FFF7FEFF 		bl	__aeabi_dcmpge
+ 233              	.LVL35:
+ 234 0120 DDF804C0 		ldr	ip, [sp, #4]
+ 235 0124 70B1     		cbz	r0, .L15
+  78:cmath/dtoa.c  ****     {
+  79:cmath/dtoa.c  **** 	*buff++ = '1';
+ 236              		.loc 1 79 0
+ 237 0126 3123     		movs	r3, #49
+ 238 0128 08F8013B 		strb	r3, [r8], #1
+ 239              	.LVL36:
+  80:cmath/dtoa.c  **** 	v -= 10.0;
+ 240              		.loc 1 80 0
+ 241 012c 3046     		mov	r0, r6
+ 242 012e 3946     		mov	r1, r7
+ 243 0130 0022     		movs	r2, #0
+ 244 0132 314B     		ldr	r3, .L41+4
+ 245 0134 CDF804C0 		str	ip, [sp, #4]
+ 246 0138 FFF7FEFF 		bl	__aeabi_dsub
+ 247              	.LVL37:
+ 248 013c CDE90201 		strd	r0, [sp, #8]
+ 249 0140 DDF804C0 		ldr	ip, [sp, #4]
+ 250              	.L15:
+  70:cmath/dtoa.c  ****     if( conv == 'e' && imax == 0 && value < powten[0]) 
+ 251              		.loc 1 70 0 discriminator 1
+ 252 0144 0026     		movs	r6, #0
+  81:cmath/dtoa.c  ****     }
+  82:cmath/dtoa.c  **** 
+  83:cmath/dtoa.c  ****     /* build digit string */
+  84:cmath/dtoa.c  ****     for( i = 0; i < ndigits; i++) 
+  85:cmath/dtoa.c  ****     {
+  86:cmath/dtoa.c  **** 	if( i == nlead )
+  87:cmath/dtoa.c  **** 	    *buff++ = '.';
+ 253              		.loc 1 87 0 discriminator 1
+ 254 0146 2E27     		movs	r7, #46
+ 255 0148 1AE0     		b	.L17
+ 256              	.LVL38:
+ 257              	.L19:
+  86:cmath/dtoa.c  **** 	if( i == nlead )
+ 258              		.loc 1 86 0
+ 259 014a 6645     		cmp	r6, ip
+ 260              		.loc 1 87 0
+ 261 014c 08BF     		it	eq
+ 262 014e 08F8017B 		strbeq	r7, [r8], #1
+ 263              	.LVL39:
+  88:cmath/dtoa.c  **** 	*buff++ = (int)v + '0';
+ 264              		.loc 1 88 0
+ 265 0152 DDE90201 		ldrd	r0, [sp, #8]
+ 266 0156 CDF804C0 		str	ip, [sp, #4]
+ 267 015a FFF7FEFF 		bl	__aeabi_d2iz
+ 268              	.LVL40:
+ 269 015e 3030     		adds	r0, r0, #48
+ 270 0160 08F8010B 		strb	r0, [r8], #1
+ 271              	.LVL41:
+  89:cmath/dtoa.c  **** 	value = modf(value * 10.0, &v);
+ 272              		.loc 1 89 0
+ 273 0164 2946     		mov	r1, r5
+ 274 0166 2046     		mov	r0, r4
+ 275 0168 0022     		movs	r2, #0
+ 276 016a 234B     		ldr	r3, .L41+4
+ 277 016c FFF7FEFF 		bl	__aeabi_dmul
+ 278              	.LVL42:
+ 279 0170 02AA     		add	r2, sp, #8
+ 280 0172 FFF7FEFF 		bl	modf
+ 281              	.LVL43:
+  84:cmath/dtoa.c  ****     for( i = 0; i < ndigits; i++) 
+ 282              		.loc 1 84 0
+ 283 0176 DDF804C0 		ldr	ip, [sp, #4]
+ 284              		.loc 1 89 0
+ 285 017a 0446     		mov	r4, r0
+ 286              	.LVL44:
+ 287 017c 0D46     		mov	r5, r1
+ 288              	.LVL45:
+  84:cmath/dtoa.c  ****     for( i = 0; i < ndigits; i++) 
+ 289              		.loc 1 84 0
+ 290 017e 0136     		adds	r6, r6, #1
+ 291              	.LVL46:
+ 292              	.L17:
+  84:cmath/dtoa.c  ****     for( i = 0; i < ndigits; i++) 
+ 293              		.loc 1 84 0 is_stmt 0 discriminator 1
+ 294 0180 5E45     		cmp	r6, fp
+ 295 0182 E2DB     		blt	.L19
+  90:cmath/dtoa.c  ****     }
+  91:cmath/dtoa.c  **** 
+  92:cmath/dtoa.c  ****     /* if not 'f' print exponent part */
+  93:cmath/dtoa.c  ****     if( conv != 'f' )
+ 296              		.loc 1 93 0 is_stmt 1
+ 297 0184 B9F1660F 		cmp	r9, #102
+ 298 0188 1CD0     		beq	.L20
+  94:cmath/dtoa.c  ****     {
+  95:cmath/dtoa.c  **** 	*buff++ = 'e';
+ 299              		.loc 1 95 0
+ 300 018a 6522     		movs	r2, #101
+ 301 018c 4346     		mov	r3, r8
+  96:cmath/dtoa.c  **** 	if( exp < 0 )
+ 302              		.loc 1 96 0
+ 303 018e BAF1000F 		cmp	sl, #0
+  95:cmath/dtoa.c  **** 	*buff++ = 'e';
+ 304              		.loc 1 95 0
+ 305 0192 03F8022B 		strb	r2, [r3], #2
+ 306              	.LVL47:
+ 307              		.loc 1 96 0
+ 308 0196 03DA     		bge	.L21
+  97:cmath/dtoa.c  **** 	{
+  98:cmath/dtoa.c  **** 	    exp = -exp;
+ 309              		.loc 1 98 0
+ 310 0198 CAF1000A 		rsb	sl, sl, #0
+ 311              	.LVL48:
+  99:cmath/dtoa.c  **** 	    *buff++ = '-';
+ 312              		.loc 1 99 0
+ 313 019c 2D22     		movs	r2, #45
+ 314 019e 00E0     		b	.L39
+ 315              	.L21:
+ 100:cmath/dtoa.c  **** 	}
+ 101:cmath/dtoa.c  **** 	else *buff++ = '+';
+ 316              		.loc 1 101 0
+ 317 01a0 2B22     		movs	r2, #43
+ 318              	.L39:
+ 319 01a2 88F80120 		strb	r2, [r8, #1]
+ 320              	.LVL49:
+ 102:cmath/dtoa.c  **** 	j = exp/10;
+ 321              		.loc 1 102 0
+ 322 01a6 0A22     		movs	r2, #10
+ 323 01a8 9AFBF2F2 		sdiv	r2, sl, r2
+ 324              	.LVL50:
+ 103:cmath/dtoa.c  **** 	*buff++ = '0' + j;
+ 325              		.loc 1 103 0
+ 326 01ac 02F13001 		add	r1, r2, #48
+ 327 01b0 1970     		strb	r1, [r3, #0]
+ 328              	.LVL51:
+ 104:cmath/dtoa.c  **** 	*buff++ = '0' + exp - 10*j;
+ 329              		.loc 1 104 0
+ 330 01b2 0AF1300A 		add	sl, sl, #48
+ 331              	.LVL52:
+ 332 01b6 6FF00901 		mvn	r1, #9
+ 333 01ba 01FB02A2 		mla	r2, r1, r2, sl
+ 334              	.LVL53:
+ 335 01be 03F10208 		add	r8, r3, #2
+ 336              	.LVL54:
+ 337 01c2 5A70     		strb	r2, [r3, #1]
+ 338              	.LVL55:
+ 339              	.L20:
+ 105:cmath/dtoa.c  ****     }
+ 106:cmath/dtoa.c  ****     /* print final null */
+ 107:cmath/dtoa.c  ****     *buff++ = '\0';
+ 340              		.loc 1 107 0
+ 341 01c4 0023     		movs	r3, #0
+ 342 01c6 88F80030 		strb	r3, [r8, #0]
+ 343              	.LVL56:
+ 344 01ca 0FE0     		b	.L38
+ 345              	.LVL57:
+ 346              	.L27:
+  58:cmath/dtoa.c  **** 	    dplace = SIGFIGS;
+ 347              		.loc 1 58 0
+ 348 01cc 4FF0120B 		mov	fp, #18
+ 349              	.LVL58:
+ 350              	.L40:
+  57:cmath/dtoa.c  **** 	    conv = 'e';
+ 351              		.loc 1 57 0
+ 352 01d0 4FF06509 		mov	r9, #101
+ 353              	.L11:
+ 354              	.LVL59:
+  64:cmath/dtoa.c  **** 	ndigits = dplace + nlead;
+ 355              		.loc 1 64 0
+ 356 01d4 0BF1010B 		add	fp, fp, #1
+ 357              	.LVL60:
+ 358 01d8 BBF1120F 		cmp	fp, #18
+ 359 01dc A8BF     		it	ge
+ 360 01de 4FF0120B 		movge	fp, #18
+ 361              	.LVL61:
+  70:cmath/dtoa.c  ****     if( conv == 'e' && imax == 0 && value < powten[0]) 
+ 362              		.loc 1 70 0
+ 363 01e2 B9F1650F 		cmp	r9, #101
+ 364 01e6 3FF459AF 		beq	.L23
+ 365 01ea 6DE7     		b	.L37
+ 366              	.LVL62:
+ 367              	.L38:
+ 108:cmath/dtoa.c  ****     return;
+ 109:cmath/dtoa.c  **** }
+ 368              		.loc 1 109 0
+ 369 01ec 05B0     		add	sp, sp, #20
+ 370 01ee BDE8F08F 		pop	{r4, r5, r6, r7, r8, r9, sl, fp, pc}
+ 371              	.L42:
+ 372 01f2 00BF     		.align	2
+ 373              	.L41:
+ 374 01f4 00000000 		.word	powten
+ 375 01f8 00002440 		.word	1076101120
+ 376 01fc 0000E03F 		.word	1071644672
+ 377 0200 68020000 		.word	powten+616
+ 378              		.cfi_endproc
+ 379              	.LFE0:
+ 381              	.Letext0:
+ 382              		.file 2 "c:\\program files (x86)\\codesourcery\\sourcery_codebench_lite_for_arm_eabi\\bin\\../lib/
+DEFINED SYMBOLS
+                            *ABS*:00000000 dtoa.c
+C:\Users\Rene\AppData\Local\Temp\ccpJ8JoF.s:26     .text:00000000 $t
+C:\Users\Rene\AppData\Local\Temp\ccpJ8JoF.s:31     .text:00000000 dtoa
+C:\Users\Rene\AppData\Local\Temp\ccpJ8JoF.s:374    .text:000001f4 $d
+                     .debug_frame:00000010 $d
+
+UNDEFINED SYMBOLS
+__aeabi_dcmplt
+__aeabi_dcmpeq
+__aeabi_dmul
+__aeabi_ddiv
+__aeabi_dadd
+__aeabi_dcmpge
+__aeabi_dsub
+__aeabi_d2iz
+modf
+powten

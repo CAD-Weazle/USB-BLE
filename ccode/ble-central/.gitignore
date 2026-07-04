@@ -1,0 +1,9 @@
+*.o
+.dep
+tags
+logfile
+term
+sensor.*
+logs/
+filedata.c
+webtool

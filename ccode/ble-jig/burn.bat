@@ -1,0 +1,1 @@
+openocd -f stlink.cfg -c "program solar-ble.hex reset exit"

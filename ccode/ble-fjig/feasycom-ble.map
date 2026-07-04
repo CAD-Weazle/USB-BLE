@@ -1,0 +1,898 @@
+Archive member included because of file (symbol)
+
+d:/gcc/bin/../lib/gcc/arm-none-eabi/4.9.3/../../../../arm-none-eabi/lib/armv7-m\libm.a(lib_a-s_modf.o)
+                              ./cmath/dtoa.o (modf)
+d:/gcc/bin/../lib/gcc/arm-none-eabi/4.9.3/armv7-m\libgcc.a(_arm_addsubdf3.o)
+                              ./cmath/dtoa.o (__aeabi_dsub)
+d:/gcc/bin/../lib/gcc/arm-none-eabi/4.9.3/armv7-m\libgcc.a(_arm_muldivdf3.o)
+                              ./cmath/atof.o (__aeabi_dmul)
+d:/gcc/bin/../lib/gcc/arm-none-eabi/4.9.3/armv7-m\libgcc.a(_arm_cmpdf2.o)
+                              ./cmath/dtoa.o (__aeabi_dcmpeq)
+d:/gcc/bin/../lib/gcc/arm-none-eabi/4.9.3/armv7-m\libgcc.a(_arm_fixdfsi.o)
+                              ./cmath/dtoa.o (__aeabi_d2iz)
+d:/gcc/bin/../lib/gcc/arm-none-eabi/4.9.3/armv7-m\libgcc.a(_arm_addsubsf3.o)
+                              sht15.o (__aeabi_fsub)
+d:/gcc/bin/../lib/gcc/arm-none-eabi/4.9.3/armv7-m\libgcc.a(_arm_muldivsf3.o)
+                              adc.o (__aeabi_fmul)
+d:/gcc/bin/../lib/gcc/arm-none-eabi/4.9.3/armv7-m\libgcc.a(_arm_cmpsf2.o)
+                              sht15.o (__aeabi_fcmplt)
+d:/gcc/bin/../lib/gcc/arm-none-eabi/4.9.3/../../../../arm-none-eabi/lib/armv7-m\libg.a(lib_a-ctype_.o)
+                              dump.o (__ctype_ptr__)
+d:/gcc/bin/../lib/gcc/arm-none-eabi/4.9.3/../../../../arm-none-eabi/lib/armv7-m\libg.a(lib_a-strchr.o)
+                              cli.o (strchr)
+d:/gcc/bin/../lib/gcc/arm-none-eabi/4.9.3/../../../../arm-none-eabi/lib/armv7-m\libg.a(lib_a-strcmp.o)
+                              cli.o (strcmp)
+d:/gcc/bin/../lib/gcc/arm-none-eabi/4.9.3/../../../../arm-none-eabi/lib/armv7-m\libg.a(lib_a-strlen.o)
+                              printf2.o (strlen)
+d:/gcc/bin/../lib/gcc/arm-none-eabi/4.9.3/../../../../arm-none-eabi/lib/armv7-m\libg.a(lib_a-strnlen.o)
+                              printf2.o (strnlen)
+
+Allocating common symbols
+Common symbol       size              file
+
+vrefint             0x4               adc.o
+argv                0x28              cli.o
+sht_humi            0x4               sht15.o
+adc_avg             0x10              adc.o
+argc                0x4               cli.o
+ble_buf_len         0x1               ble.o
+sht_temp            0x4               sht15.o
+buf_len             0x1               cli.o
+buf                 0x80              cli.o
+ble_buf             0xff              ble.o
+adc_dat             0x10              adc.o
+
+Memory Configuration
+
+Name             Origin             Length             Attributes
+FLASH            0x08000000         0x00040000         xr
+RAM              0x20000000         0x00008000         xrw
+*default*        0x00000000         0xffffffff
+
+Linker script and memory map
+
+LOAD ./core/system_stm32l1xx.o
+LOAD ./cmath/powten.o
+LOAD ./cmath/atof.o
+LOAD ./cmath/dtoa.o
+LOAD main.o
+LOAD clock.o
+LOAD power.o
+LOAD ports.o
+LOAD ticker.o
+LOAD uart2.o
+LOAD uart3.o
+LOAD printf2.o
+LOAD printf3.o
+LOAD dump.o
+LOAD cli.o
+LOAD dma.o
+LOAD adc.o
+LOAD ble.o
+LOAD sht15.o
+LOAD ./core/startup_stm32l151xc.o
+LOAD d:/gcc/bin/../lib/gcc/arm-none-eabi/4.9.3/../../../../arm-none-eabi/lib/armv7-m\libm.a
+START GROUP
+LOAD d:/gcc/bin/../lib/gcc/arm-none-eabi/4.9.3/armv7-m\libgcc.a
+LOAD d:/gcc/bin/../lib/gcc/arm-none-eabi/4.9.3/../../../../arm-none-eabi/lib/armv7-m\libg.a
+LOAD d:/gcc/bin/../lib/gcc/arm-none-eabi/4.9.3/../../../../arm-none-eabi/lib/armv7-m\libc.a
+END GROUP
+                0x20008000                _estack = 0x20008000
+                0x00000200                _Min_Heap_Size = 0x200
+                0x00000400                _Min_Stack_Size = 0x400
+
+.isr_vector     0x08000000      0x13c
+                0x08000000                . = ALIGN (0x4)
+ *(.isr_vector)
+ .isr_vector    0x08000000      0x13c ./core/startup_stm32l151xc.o
+                0x08000000                g_pfnVectors
+                0x0800013c                . = ALIGN (0x4)
+
+.text           0x08000140     0x396c
+                0x08000140                . = ALIGN (0x4)
+ *(.text)
+ .text          0x08000140       0xd4 ./core/system_stm32l1xx.o
+                0x08000140                SystemInit
+                0x08000190                SystemCoreClockUpdate
+ .text          0x08000214        0x0 ./cmath/powten.o
+ *fill*         0x08000214        0x4 
+ .text          0x08000218      0x1d8 ./cmath/atof.o
+                0x08000218                atof
+ .text          0x080003f0      0x2cc ./cmath/dtoa.o
+                0x080003f0                dtoa
+ .text          0x080006bc        0x0 main.o
+ .text          0x080006bc       0xd4 clock.o
+                0x080006bc                init_clock
+                0x080006f4                rcc_set_systemclock
+                0x08000714                rcc_set_rtcclock
+                0x08000760                rcc_start_hsi
+                0x08000780                rcc_stop_hsi
+ .text          0x08000790      0x174 power.o
+                0x08000790                init_power
+                0x080007cc                power_event_enable
+                0x080007f8                power_down
+                0x0800083c                power_event_disable
+                0x08000868                power_up
+                0x08000890                power_enter_ulpmode
+                0x080008a0                power_leave_ulpmode
+                0x080008b0                power_enter_lprmode
+                0x080008c8                power_leave_lprmode
+                0x080008e0                power_set_corevoltage
+ .text          0x08000904      0x258 ports.o
+                0x080009bc                init_ports
+                0x08000a0c                ports_stop
+                0x08000a50                ports_resume
+                0x08000a74                led_red_on
+                0x08000a84                led_red_off
+                0x08000a94                led_red_toggle
+                0x08000aac                led_red_flash
+                0x08000ac8                led_grn_on
+                0x08000ad8                led_grn_off
+                0x08000ae8                led_grn_toggle
+                0x08000b00                led_grn_flash
+                0x08000b1c                vgnd_enable
+                0x08000b2c                vgnd_disable
+                0x08000b3c                sensor_power_enable
+                0x08000b4c                sensor_power_disable
+ .text          0x08000b5c       0xd8 ticker.o
+                0x08000b5c                TIM7_IRQHandler
+                0x08000bac                init_ticker
+                0x08000bf0                usleep
+                0x08000c08                msleep
+ .text          0x08000c34      0x148 uart2.o
+                0x08000c34                USART2_IRQHandler
+                0x08000ca4                init_uart2
+                0x08000ce0                uart2_putc
+                0x08000d28                uart2_puts
+                0x08000d40                uart2_getc
+                0x08000d64                uart2_flush
+ .text          0x08000d7c      0x148 uart3.o
+                0x08000d7c                USART3_IRQHandler
+                0x08000dec                init_uart3
+                0x08000e28                uart3_putc
+                0x08000e70                uart3_flush
+                0x08000e88                uart3_puts
+                0x08000ea0                uart3_getc
+ .text          0x08000ec4      0x378 printf2.o
+                0x08000ec4                sprintf2
+                0x080011d0                printf2
+                0x08001204                debug
+ .text          0x0800123c      0x340 printf3.o
+                0x08001548                printf3
+ .text          0x0800157c      0x150 dump.o
+                0x0800157c                dump_ascii
+ .text          0x080016cc      0x4c0 cli.o
+                0x080019bc                first_prompt
+                0x080019c8                prompt
+                0x080019d4                rb_atoi
+                0x08001a1c                rb_atol
+                0x08001a64                skipws
+                0x08001a78                split_line
+                0x08001ac4                parse_line
+                0x08001acc                help
+                0x08001ae8                version
+                0x08001af4                poll_cli
+ .text          0x08001b8c       0xd4 dma.o
+                0x08001b8c                init_dma_adc
+                0x08001bc8                dma_enable
+                0x08001bd8                dma_disable
+                0x08001bf8                dma_dump_registers
+ .text          0x08001c60      0x400 adc.o
+                0x08001c60                init_adc
+                0x08001cd8                adc_filter
+                0x08001d30                adc_scan
+                0x08001da0                adc_convert
+                0x08001e60                adc_update
+                0x08001e70                adc_power_on
+                0x08001e88                adc_power_off
+                0x08001ea0                vrefint_enable
+                0x08001eb4                vrefint_disable
+                0x08001ec4                adc_dump
+                0x08001f08                adc_dump_ble
+                0x08001f4c                adc_dump_raw
+                0x08001f9c                adc_dump_registers
+ .text          0x08002060      0x31c ble.o
+                0x08002060                ble_at
+                0x0800207c                ble_reset
+                0x080020a0                ble_enter_lpm
+                0x080020bc                ble_do
+                0x08002188                ble_leave_lpm
+                0x080021a4                ble_cmd_mode
+                0x080021bc                ble_data_mode
+                0x080021d4                ble_get_name
+                0x080021fc                ble_dump_name
+                0x0800220c                ble_set_advin
+                0x08002238                init_ble
+                0x08002268                ble_parse_line
+                0x0800230c                poll_ble
+ .text          0x0800237c      0x3e4 sht15.o
+                0x0800237c                sht15_reset
+                0x080023b0                sht15_start
+                0x080023fc                sht15_stop
+                0x08002400                sht15_read
+                0x080024a0                sht15_write
+                0x08002534                init_sht15
+                0x08002550                sht15_measure
+                0x080025a8                sht15_get_t
+                0x080025e0                sht15_get_h
+                0x08002688                sht15_update
+                0x080026a4                HCLK_0
+                0x080026b8                HCLK_1
+                0x080026cc                HDAT_0
+                0x080026e0                HDAT_1
+                0x080026f0                sht15_dump
+                0x08002728                sht15_dump_ble
+ .text          0x08002760       0x14 ./core/startup_stm32l151xc.o
+ .text          0x08002774        0x0 d:/gcc/bin/../lib/gcc/arm-none-eabi/4.9.3/../../../../arm-none-eabi/lib/armv7-m\libm.a(lib_a-s_modf.o)
+ .text          0x08002774      0x370 d:/gcc/bin/../lib/gcc/arm-none-eabi/4.9.3/armv7-m\libgcc.a(_arm_addsubdf3.o)
+                0x08002774                __aeabi_drsub
+                0x0800277c                __aeabi_dsub
+                0x0800277c                __subdf3
+                0x08002780                __aeabi_dadd
+                0x08002780                __adddf3
+                0x080029f8                __floatunsidf
+                0x080029f8                __aeabi_ui2d
+                0x08002a18                __floatsidf
+                0x08002a18                __aeabi_i2d
+                0x08002a3c                __aeabi_f2d
+                0x08002a3c                __extendsfdf2
+                0x08002a78                __floatundidf
+                0x08002a78                __aeabi_ul2d
+                0x08002a88                __floatdidf
+                0x08002a88                __aeabi_l2d
+ .text          0x08002ae4      0x424 d:/gcc/bin/../lib/gcc/arm-none-eabi/4.9.3/armv7-m\libgcc.a(_arm_muldivdf3.o)
+                0x08002ae4                __aeabi_dmul
+                0x08002ae4                __muldf3
+                0x08002d38                __divdf3
+                0x08002d38                __aeabi_ddiv
+ .text          0x08002f08      0x110 d:/gcc/bin/../lib/gcc/arm-none-eabi/4.9.3/armv7-m\libgcc.a(_arm_cmpdf2.o)
+                0x08002f08                __gtdf2
+                0x08002f08                __gedf2
+                0x08002f10                __ltdf2
+                0x08002f10                __ledf2
+                0x08002f18                __nedf2
+                0x08002f18                __eqdf2
+                0x08002f18                __cmpdf2
+                0x08002f94                __aeabi_cdrcmple
+                0x08002fa4                __aeabi_cdcmpeq
+                0x08002fa4                __aeabi_cdcmple
+                0x08002fb4                __aeabi_dcmpeq
+                0x08002fc8                __aeabi_dcmplt
+                0x08002fdc                __aeabi_dcmple
+                0x08002ff0                __aeabi_dcmpge
+                0x08003004                __aeabi_dcmpgt
+ .text          0x08003018       0x50 d:/gcc/bin/../lib/gcc/arm-none-eabi/4.9.3/armv7-m\libgcc.a(_arm_fixdfsi.o)
+                0x08003018                __aeabi_d2iz
+                0x08003018                __fixdfsi
+ .text          0x08003068      0x21c d:/gcc/bin/../lib/gcc/arm-none-eabi/4.9.3/armv7-m\libgcc.a(_arm_addsubsf3.o)
+                0x08003068                __aeabi_frsub
+                0x08003070                __subsf3
+                0x08003070                __aeabi_fsub
+                0x08003074                __aeabi_fadd
+                0x08003074                __addsf3
+                0x080031d4                __aeabi_ui2f
+                0x080031d4                __floatunsisf
+                0x080031dc                __aeabi_i2f
+                0x080031dc                __floatsisf
+                0x080031f8                __aeabi_ul2f
+                0x080031f8                __floatundisf
+                0x08003208                __aeabi_l2f
+                0x08003208                __floatdisf
+ .text          0x08003284      0x2a0 d:/gcc/bin/../lib/gcc/arm-none-eabi/4.9.3/armv7-m\libgcc.a(_arm_muldivsf3.o)
+                0x08003284                __mulsf3
+                0x08003284                __aeabi_fmul
+                0x080033ec                __aeabi_fdiv
+                0x080033ec                __divsf3
+ .text          0x08003524       0xec d:/gcc/bin/../lib/gcc/arm-none-eabi/4.9.3/armv7-m\libgcc.a(_arm_cmpsf2.o)
+                0x08003524                __gesf2
+                0x08003524                __gtsf2
+                0x0800352c                __lesf2
+                0x0800352c                __ltsf2
+                0x08003534                __nesf2
+                0x08003534                __eqsf2
+                0x08003534                __cmpsf2
+                0x08003594                __aeabi_cfrcmple
+                0x0800359c                __aeabi_cfcmpeq
+                0x0800359c                __aeabi_cfcmple
+                0x080035ac                __aeabi_fcmpeq
+                0x080035c0                __aeabi_fcmplt
+                0x080035d4                __aeabi_fcmple
+                0x080035e8                __aeabi_fcmpge
+                0x080035fc                __aeabi_fcmpgt
+ .text          0x08003610        0x0 d:/gcc/bin/../lib/gcc/arm-none-eabi/4.9.3/../../../../arm-none-eabi/lib/armv7-m\libg.a(lib_a-ctype_.o)
+ .text          0x08003610        0x0 d:/gcc/bin/../lib/gcc/arm-none-eabi/4.9.3/../../../../arm-none-eabi/lib/armv7-m\libg.a(lib_a-strchr.o)
+ .text          0x08003610      0x1bc d:/gcc/bin/../lib/gcc/arm-none-eabi/4.9.3/../../../../arm-none-eabi/lib/armv7-m\libg.a(lib_a-strcmp.o)
+                0x08003610                strcmp
+ .text          0x080037cc        0x0 d:/gcc/bin/../lib/gcc/arm-none-eabi/4.9.3/../../../../arm-none-eabi/lib/armv7-m\libg.a(lib_a-strlen.o)
+ .text          0x080037cc        0x0 d:/gcc/bin/../lib/gcc/arm-none-eabi/4.9.3/../../../../arm-none-eabi/lib/armv7-m\libg.a(lib_a-strnlen.o)
+ *(.text*)
+ .text.startup  0x080037cc       0x40 main.o
+                0x080037cc                main
+ .text.Reset_Handler
+                0x0800380c       0x44 ./core/startup_stm32l151xc.o
+                0x0800380c                Reset_Handler
+ .text.Default_Handler
+                0x08003850        0x2 ./core/startup_stm32l151xc.o
+                0x08003850                RTC_Alarm_IRQHandler
+                0x08003850                EXTI2_IRQHandler
+                0x08003850                COMP_ACQ_IRQHandler
+                0x08003850                DebugMon_Handler
+                0x08003850                HardFault_Handler
+                0x08003850                TIM10_IRQHandler
+                0x08003850                USB_HP_IRQHandler
+                0x08003850                TIM6_IRQHandler
+                0x08003850                SysTick_Handler
+                0x08003850                PVD_IRQHandler
+                0x08003850                PendSV_Handler
+                0x08003850                NMI_Handler
+                0x08003850                EXTI3_IRQHandler
+                0x08003850                EXTI0_IRQHandler
+                0x08003850                I2C2_EV_IRQHandler
+                0x08003850                UsageFault_Handler
+                0x08003850                SPI1_IRQHandler
+                0x08003850                USB_FS_WKUP_IRQHandler
+                0x08003850                DMA2_Channel2_IRQHandler
+                0x08003850                DMA1_Channel4_IRQHandler
+                0x08003850                ADC1_IRQHandler
+                0x08003850                DMA1_Channel7_IRQHandler
+                0x08003850                TIM4_IRQHandler
+                0x08003850                DMA2_Channel1_IRQHandler
+                0x08003850                I2C1_EV_IRQHandler
+                0x08003850                DMA1_Channel6_IRQHandler
+                0x08003850                DMA2_Channel4_IRQHandler
+                0x08003850                TIM3_IRQHandler
+                0x08003850                RCC_IRQHandler
+                0x08003850                DMA1_Channel1_IRQHandler
+                0x08003850                Default_Handler
+                0x08003850                EXTI15_10_IRQHandler
+                0x08003850                TIM5_IRQHandler
+                0x08003850                EXTI9_5_IRQHandler
+                0x08003850                TIM9_IRQHandler
+                0x08003850                TAMPER_STAMP_IRQHandler
+                0x08003850                RTC_WKUP_IRQHandler
+                0x08003850                SPI2_IRQHandler
+                0x08003850                MemManage_Handler
+                0x08003850                SVC_Handler
+                0x08003850                DMA2_Channel5_IRQHandler
+                0x08003850                DMA1_Channel5_IRQHandler
+                0x08003850                USB_LP_IRQHandler
+                0x08003850                EXTI4_IRQHandler
+                0x08003850                DMA1_Channel3_IRQHandler
+                0x08003850                COMP_IRQHandler
+                0x08003850                WWDG_IRQHandler
+                0x08003850                TIM2_IRQHandler
+                0x08003850                DAC_IRQHandler
+                0x08003850                EXTI1_IRQHandler
+                0x08003850                TIM11_IRQHandler
+                0x08003850                I2C2_ER_IRQHandler
+                0x08003850                DMA1_Channel2_IRQHandler
+                0x08003850                FLASH_IRQHandler
+                0x08003850                BusFault_Handler
+                0x08003850                USART1_IRQHandler
+                0x08003850                SPI3_IRQHandler
+                0x08003850                I2C1_ER_IRQHandler
+                0x08003850                DMA2_Channel3_IRQHandler
+ *fill*         0x08003852        0x2 
+ .text.modf     0x08003854       0xc4 d:/gcc/bin/../lib/gcc/arm-none-eabi/4.9.3/../../../../arm-none-eabi/lib/armv7-m\libm.a(lib_a-s_modf.o)
+                0x08003854                modf
+ .text.strchr   0x08003918       0xcc d:/gcc/bin/../lib/gcc/arm-none-eabi/4.9.3/../../../../arm-none-eabi/lib/armv7-m\libg.a(lib_a-strchr.o)
+                0x08003918                strchr
+ .text.strlen   0x080039e4       0x5c d:/gcc/bin/../lib/gcc/arm-none-eabi/4.9.3/../../../../arm-none-eabi/lib/armv7-m\libg.a(lib_a-strlen.o)
+                0x080039e4                strlen
+ .text.strnlen  0x08003a40       0x34 d:/gcc/bin/../lib/gcc/arm-none-eabi/4.9.3/../../../../arm-none-eabi/lib/armv7-m\libg.a(lib_a-strnlen.o)
+                0x08003a40                strnlen
+ *(.glue_7)
+ .glue_7        0x00000000        0x0 linker stubs
+ *(.glue_7t)
+ .glue_7t       0x00000000        0x0 linker stubs
+ *(.eh_frame)
+ .eh_frame      0x08003a74       0x38 d:/gcc/bin/../lib/gcc/arm-none-eabi/4.9.3/../../../../arm-none-eabi/lib/armv7-m\libg.a(lib_a-strcmp.o)
+ *(.init)
+ *(.fini)
+                0x08003aac                . = ALIGN (0x4)
+                0x08003aac                _etext = .
+
+.vfp11_veneer   0x08003aac        0x0
+ .vfp11_veneer  0x00000000        0x0 linker stubs
+
+.v4_bx          0x08003aac        0x0
+ .v4_bx         0x00000000        0x0 linker stubs
+
+.iplt           0x08003aac        0x0
+ .iplt          0x00000000        0x0 ./core/system_stm32l1xx.o
+
+.rodata         0x08003ab0      0xa7c
+                0x08003ab0                . = ALIGN (0x4)
+ *(.rodata)
+ .rodata        0x08003ab0       0x24 ./core/system_stm32l1xx.o
+                0x08003ab0                PLLMulTable
+                0x08003abc                AHBPrescTable
+                0x08003acc                APBPrescTable
+ *fill*         0x08003ad4        0x4 
+ .rodata        0x08003ad8      0x268 ./cmath/powten.o
+                0x08003ad8                powten
+ .rodata        0x08003d40       0xc0 ports.o
+ *(.rodata*)
+ .rodata.str1.4
+                0x08003e00       0x21 printf2.o
+                                 0x28 (size before relaxing)
+ .rodata.str1.4
+                0x00000000       0x28 printf3.o
+ *fill*         0x08003e21        0x3 
+ .rodata.str1.4
+                0x08003e24       0x22 dump.o
+                                 0x30 (size before relaxing)
+ *fill*         0x08003e46        0x2 
+ .rodata.str1.4
+                0x08003e48      0x20a cli.o
+                                0x210 (size before relaxing)
+ *fill*         0x08004052        0x2 
+ .rodata.str1.4
+                0x08004054       0xcc dma.o
+ .rodata.str1.4
+                0x08004120      0x1a0 adc.o
+                                0x1a4 (size before relaxing)
+ .rodata.str1.4
+                0x080042c0      0x14d ble.o
+                                0x178 (size before relaxing)
+ *fill*         0x0800440d        0x3 
+ .rodata.str1.4
+                0x08004410       0x18 sht15.o
+ .rodata._ctype_
+                0x08004428      0x104 d:/gcc/bin/../lib/gcc/arm-none-eabi/4.9.3/../../../../arm-none-eabi/lib/armv7-m\libg.a(lib_a-ctype_.o)
+                0x08004428                _ctype_
+                0x0800452c                . = ALIGN (0x4)
+
+.rel.dyn        0x0800452c        0x0
+ .rel.iplt      0x00000000        0x0 ./core/system_stm32l1xx.o
+
+.ARM.extab
+ *(.ARM.extab* .gnu.linkonce.armextab.*)
+
+.ARM            0x0800452c        0x0
+                0x0800452c                __exidx_start = .
+ *(.ARM.exidx*)
+                0x0800452c                __exidx_end = .
+
+.preinit_array  0x0800452c        0x0
+                0x0800452c                PROVIDE (__preinit_array_start, .)
+ *(.preinit_array*)
+                0x0800452c                PROVIDE (__preinit_array_end, .)
+
+.init_array     0x0800452c        0x0
+                0x0800452c                PROVIDE (__init_array_start, .)
+ *(SORT(.init_array.*))
+ *(.init_array*)
+                0x0800452c                PROVIDE (__init_array_end, .)
+
+.fini_array     0x0800452c        0x0
+                0x0800452c                PROVIDE (__fini_array_start, .)
+ *(SORT(.fini_array.*))
+ *(.fini_array*)
+                0x0800452c                PROVIDE (__fini_array_end, .)
+                0x0800452c                _sidata = LOADADDR (.data)
+
+.data           0x20000000       0x18 load address 0x0800452c
+                0x20000000                . = ALIGN (0x4)
+                0x20000000                _sdata = .
+ *(.data)
+ .data          0x20000000        0x4 ./core/system_stm32l1xx.o
+                0x20000000                SystemCoreClock
+ .data          0x20000004        0x0 ./cmath/powten.o
+ .data          0x20000004        0x0 ./cmath/atof.o
+ .data          0x20000004        0x0 ./cmath/dtoa.o
+ .data          0x20000004        0x0 main.o
+ .data          0x20000004        0x0 clock.o
+ .data          0x20000004        0x0 power.o
+ .data          0x20000004        0x0 ports.o
+ .data          0x20000004        0x0 ticker.o
+ .data          0x20000004        0x0 uart2.o
+ .data          0x20000004        0x0 uart3.o
+ .data          0x20000004        0x0 printf2.o
+ .data          0x20000004        0x0 printf3.o
+ .data          0x20000004        0x0 dump.o
+ .data          0x20000004        0x0 cli.o
+ .data          0x20000004        0x0 dma.o
+ .data          0x20000004        0x0 adc.o
+ .data          0x20000004       0x10 ble.o
+                0x20000004                ble_name
+ .data          0x20000014        0x0 sht15.o
+ .data          0x20000014        0x0 ./core/startup_stm32l151xc.o
+ .data          0x20000014        0x0 d:/gcc/bin/../lib/gcc/arm-none-eabi/4.9.3/../../../../arm-none-eabi/lib/armv7-m\libm.a(lib_a-s_modf.o)
+ .data          0x20000014        0x0 d:/gcc/bin/../lib/gcc/arm-none-eabi/4.9.3/armv7-m\libgcc.a(_arm_addsubdf3.o)
+ .data          0x20000014        0x0 d:/gcc/bin/../lib/gcc/arm-none-eabi/4.9.3/armv7-m\libgcc.a(_arm_muldivdf3.o)
+ .data          0x20000014        0x0 d:/gcc/bin/../lib/gcc/arm-none-eabi/4.9.3/armv7-m\libgcc.a(_arm_cmpdf2.o)
+ .data          0x20000014        0x0 d:/gcc/bin/../lib/gcc/arm-none-eabi/4.9.3/armv7-m\libgcc.a(_arm_fixdfsi.o)
+ .data          0x20000014        0x0 d:/gcc/bin/../lib/gcc/arm-none-eabi/4.9.3/armv7-m\libgcc.a(_arm_addsubsf3.o)
+ .data          0x20000014        0x0 d:/gcc/bin/../lib/gcc/arm-none-eabi/4.9.3/armv7-m\libgcc.a(_arm_muldivsf3.o)
+ .data          0x20000014        0x0 d:/gcc/bin/../lib/gcc/arm-none-eabi/4.9.3/armv7-m\libgcc.a(_arm_cmpsf2.o)
+ .data          0x20000014        0x0 d:/gcc/bin/../lib/gcc/arm-none-eabi/4.9.3/../../../../arm-none-eabi/lib/armv7-m\libg.a(lib_a-ctype_.o)
+ .data          0x20000014        0x0 d:/gcc/bin/../lib/gcc/arm-none-eabi/4.9.3/../../../../arm-none-eabi/lib/armv7-m\libg.a(lib_a-strchr.o)
+ .data          0x20000014        0x0 d:/gcc/bin/../lib/gcc/arm-none-eabi/4.9.3/../../../../arm-none-eabi/lib/armv7-m\libg.a(lib_a-strcmp.o)
+ .data          0x20000014        0x0 d:/gcc/bin/../lib/gcc/arm-none-eabi/4.9.3/../../../../arm-none-eabi/lib/armv7-m\libg.a(lib_a-strlen.o)
+ .data          0x20000014        0x0 d:/gcc/bin/../lib/gcc/arm-none-eabi/4.9.3/../../../../arm-none-eabi/lib/armv7-m\libg.a(lib_a-strnlen.o)
+ *(.data*)
+ .data.__ctype_ptr__
+                0x20000014        0x4 d:/gcc/bin/../lib/gcc/arm-none-eabi/4.9.3/../../../../arm-none-eabi/lib/armv7-m\libg.a(lib_a-ctype_.o)
+                0x20000014                __ctype_ptr__
+                0x20000018                . = ALIGN (0x4)
+                0x20000018                _edata = .
+
+.igot.plt       0x20000018        0x0 load address 0x08004544
+ .igot.plt      0x00000000        0x0 ./core/system_stm32l1xx.o
+                0x20000018                . = ALIGN (0x4)
+
+.bss            0x20000018      0x6b8 load address 0x08004544
+                0x20000018                _sbss = .
+                0x20000018                __bss_start__ = _sbss
+ *(.bss)
+ .bss           0x20000018        0x0 ./core/system_stm32l1xx.o
+ .bss           0x20000018        0x0 ./cmath/powten.o
+ .bss           0x20000018        0x0 ./cmath/atof.o
+ .bss           0x20000018        0x0 ./cmath/dtoa.o
+ .bss           0x20000018        0x0 main.o
+ .bss           0x20000018        0x0 clock.o
+ .bss           0x20000018        0x0 power.o
+ .bss           0x20000018        0x0 ports.o
+ .bss           0x20000018        0x6 ticker.o
+                0x2000001a                csec_elapsed
+                0x2000001c                dsec_elapsed
+                0x2000001d                sec_elapsed
+ *fill*         0x2000001e        0x2 
+ .bss           0x20000020      0x110 uart2.o
+ .bss           0x20000130      0x110 uart3.o
+ .bss           0x20000240      0x180 printf2.o
+ .bss           0x200003c0      0x100 printf3.o
+ .bss           0x200004c0        0x0 dump.o
+ .bss           0x200004c0        0x0 cli.o
+ .bss           0x200004c0        0x0 dma.o
+ .bss           0x200004c0       0x24 adc.o
+                0x200004d4                vbat
+                0x200004d8                vsol
+                0x200004dc                vdda
+                0x200004e0                vamb
+ .bss           0x200004e4        0xc ble.o
+                0x200004e4                ble_echo
+                0x200004ec                ble_log
+ .bss           0x200004f0        0x0 sht15.o
+ .bss           0x200004f0        0x0 ./core/startup_stm32l151xc.o
+ .bss           0x200004f0        0x0 d:/gcc/bin/../lib/gcc/arm-none-eabi/4.9.3/../../../../arm-none-eabi/lib/armv7-m\libm.a(lib_a-s_modf.o)
+ .bss           0x200004f0        0x0 d:/gcc/bin/../lib/gcc/arm-none-eabi/4.9.3/armv7-m\libgcc.a(_arm_addsubdf3.o)
+ .bss           0x200004f0        0x0 d:/gcc/bin/../lib/gcc/arm-none-eabi/4.9.3/armv7-m\libgcc.a(_arm_muldivdf3.o)
+ .bss           0x200004f0        0x0 d:/gcc/bin/../lib/gcc/arm-none-eabi/4.9.3/armv7-m\libgcc.a(_arm_cmpdf2.o)
+ .bss           0x200004f0        0x0 d:/gcc/bin/../lib/gcc/arm-none-eabi/4.9.3/armv7-m\libgcc.a(_arm_fixdfsi.o)
+ .bss           0x200004f0        0x0 d:/gcc/bin/../lib/gcc/arm-none-eabi/4.9.3/armv7-m\libgcc.a(_arm_addsubsf3.o)
+ .bss           0x200004f0        0x0 d:/gcc/bin/../lib/gcc/arm-none-eabi/4.9.3/armv7-m\libgcc.a(_arm_muldivsf3.o)
+ .bss           0x200004f0        0x0 d:/gcc/bin/../lib/gcc/arm-none-eabi/4.9.3/armv7-m\libgcc.a(_arm_cmpsf2.o)
+ .bss           0x200004f0        0x0 d:/gcc/bin/../lib/gcc/arm-none-eabi/4.9.3/../../../../arm-none-eabi/lib/armv7-m\libg.a(lib_a-ctype_.o)
+ .bss           0x200004f0        0x0 d:/gcc/bin/../lib/gcc/arm-none-eabi/4.9.3/../../../../arm-none-eabi/lib/armv7-m\libg.a(lib_a-strchr.o)
+ .bss           0x200004f0        0x0 d:/gcc/bin/../lib/gcc/arm-none-eabi/4.9.3/../../../../arm-none-eabi/lib/armv7-m\libg.a(lib_a-strcmp.o)
+ .bss           0x200004f0        0x0 d:/gcc/bin/../lib/gcc/arm-none-eabi/4.9.3/../../../../arm-none-eabi/lib/armv7-m\libg.a(lib_a-strlen.o)
+ .bss           0x200004f0        0x0 d:/gcc/bin/../lib/gcc/arm-none-eabi/4.9.3/../../../../arm-none-eabi/lib/armv7-m\libg.a(lib_a-strnlen.o)
+ *(.bss*)
+ *(COMMON)
+ COMMON         0x200004f0       0xb0 cli.o
+                0x200004f0                argv
+                0x20000518                argc
+                0x2000051c                buf_len
+                0x20000520                buf
+ COMMON         0x200005a0       0x24 adc.o
+                0x200005a0                vrefint
+                0x200005a4                adc_avg
+                0x200005b4                adc_dat
+ COMMON         0x200005c4      0x103 ble.o
+                0x200005c4                ble_buf_len
+                0x200005c8                ble_buf
+ *fill*         0x200006c7        0x1 
+ COMMON         0x200006c8        0x8 sht15.o
+                0x200006c8                sht_humi
+                0x200006cc                sht_temp
+                0x200006d0                . = ALIGN (0x4)
+                0x200006d0                _ebss = .
+                0x200006d0                __bss_end__ = _ebss
+
+._user_heap_stack
+                0x200006d0      0x600 load address 0x08004544
+                0x200006d0                . = ALIGN (0x4)
+                0x200006d0                PROVIDE (end, .)
+                0x200006d0                PROVIDE (_end, .)
+                0x200008d0                . = (. + _Min_Heap_Size)
+ *fill*         0x200006d0      0x200 
+                0x20000cd0                . = (. + _Min_Stack_Size)
+ *fill*         0x200008d0      0x400 
+                0x20000cd0                . = ALIGN (0x4)
+
+/DISCARD/
+ libc.a(*)
+ libm.a(*)
+ libgcc.a(*)
+
+.ARM.attributes
+                0x00000000       0x31
+ *(.ARM.attributes)
+ .ARM.attributes
+                0x00000000       0x33 ./core/system_stm32l1xx.o
+ .ARM.attributes
+                0x00000033       0x33 ./cmath/powten.o
+ .ARM.attributes
+                0x00000066       0x33 ./cmath/atof.o
+ .ARM.attributes
+                0x00000099       0x33 ./cmath/dtoa.o
+ .ARM.attributes
+                0x000000cc       0x33 main.o
+ .ARM.attributes
+                0x000000ff       0x33 clock.o
+ .ARM.attributes
+                0x00000132       0x33 power.o
+ .ARM.attributes
+                0x00000165       0x33 ports.o
+ .ARM.attributes
+                0x00000198       0x33 ticker.o
+ .ARM.attributes
+                0x000001cb       0x33 uart2.o
+ .ARM.attributes
+                0x000001fe       0x33 uart3.o
+ .ARM.attributes
+                0x00000231       0x33 printf2.o
+ .ARM.attributes
+                0x00000264       0x33 printf3.o
+ .ARM.attributes
+                0x00000297       0x33 dump.o
+ .ARM.attributes
+                0x000002ca       0x33 cli.o
+ .ARM.attributes
+                0x000002fd       0x33 dma.o
+ .ARM.attributes
+                0x00000330       0x33 adc.o
+ .ARM.attributes
+                0x00000363       0x33 ble.o
+ .ARM.attributes
+                0x00000396       0x33 sht15.o
+ .ARM.attributes
+                0x000003c9       0x21 ./core/startup_stm32l151xc.o
+ .ARM.attributes
+                0x000003ea       0x2d d:/gcc/bin/../lib/gcc/arm-none-eabi/4.9.3/../../../../arm-none-eabi/lib/armv7-m\libm.a(lib_a-s_modf.o)
+ .ARM.attributes
+                0x00000417       0x1d d:/gcc/bin/../lib/gcc/arm-none-eabi/4.9.3/armv7-m\libgcc.a(_arm_addsubdf3.o)
+ .ARM.attributes
+                0x00000434       0x1d d:/gcc/bin/../lib/gcc/arm-none-eabi/4.9.3/armv7-m\libgcc.a(_arm_muldivdf3.o)
+ .ARM.attributes
+                0x00000451       0x1d d:/gcc/bin/../lib/gcc/arm-none-eabi/4.9.3/armv7-m\libgcc.a(_arm_cmpdf2.o)
+ .ARM.attributes
+                0x0000046e       0x1d d:/gcc/bin/../lib/gcc/arm-none-eabi/4.9.3/armv7-m\libgcc.a(_arm_fixdfsi.o)
+ .ARM.attributes
+                0x0000048b       0x1d d:/gcc/bin/../lib/gcc/arm-none-eabi/4.9.3/armv7-m\libgcc.a(_arm_addsubsf3.o)
+ .ARM.attributes
+                0x000004a8       0x1d d:/gcc/bin/../lib/gcc/arm-none-eabi/4.9.3/armv7-m\libgcc.a(_arm_muldivsf3.o)
+ .ARM.attributes
+                0x000004c5       0x1d d:/gcc/bin/../lib/gcc/arm-none-eabi/4.9.3/armv7-m\libgcc.a(_arm_cmpsf2.o)
+ .ARM.attributes
+                0x000004e2       0x2d d:/gcc/bin/../lib/gcc/arm-none-eabi/4.9.3/../../../../arm-none-eabi/lib/armv7-m\libg.a(lib_a-ctype_.o)
+ .ARM.attributes
+                0x0000050f       0x2d d:/gcc/bin/../lib/gcc/arm-none-eabi/4.9.3/../../../../arm-none-eabi/lib/armv7-m\libg.a(lib_a-strchr.o)
+ .ARM.attributes
+                0x0000053c       0x1b d:/gcc/bin/../lib/gcc/arm-none-eabi/4.9.3/../../../../arm-none-eabi/lib/armv7-m\libg.a(lib_a-strcmp.o)
+ .ARM.attributes
+                0x00000557       0x2d d:/gcc/bin/../lib/gcc/arm-none-eabi/4.9.3/../../../../arm-none-eabi/lib/armv7-m\libg.a(lib_a-strlen.o)
+ .ARM.attributes
+                0x00000584       0x2d d:/gcc/bin/../lib/gcc/arm-none-eabi/4.9.3/../../../../arm-none-eabi/lib/armv7-m\libg.a(lib_a-strnlen.o)
+OUTPUT(feasycom-ble.elf elf32-littlearm)
+
+.debug_info     0x00000000     0x632a
+ .debug_info    0x00000000      0x41a ./core/system_stm32l1xx.o
+ .debug_info    0x0000041a       0x52 ./cmath/powten.o
+ .debug_info    0x0000046c      0x140 ./cmath/atof.o
+ .debug_info    0x000005ac      0x1b7 ./cmath/dtoa.o
+ .debug_info    0x00000763      0x192 main.o
+ .debug_info    0x000008f5      0x24f clock.o
+ .debug_info    0x00000b44      0x51f power.o
+ .debug_info    0x00001063      0x6a6 ports.o
+ .debug_info    0x00001709      0x722 ticker.o
+ .debug_info    0x00001e2b      0x692 uart2.o
+ .debug_info    0x000024bd      0x692 uart3.o
+ .debug_info    0x00002b4f      0x5b5 printf2.o
+ .debug_info    0x00003104      0x50e printf3.o
+ .debug_info    0x00003612      0x292 dump.o
+ .debug_info    0x000038a4      0xac2 cli.o
+ .debug_info    0x00004366      0x49d dma.o
+ .debug_info    0x00004803      0x94a adc.o
+ .debug_info    0x0000514d      0x8a6 ble.o
+ .debug_info    0x000059f3      0x937 sht15.o
+
+.debug_abbrev   0x00000000     0x1e63
+ .debug_abbrev  0x00000000      0x101 ./core/system_stm32l1xx.o
+ .debug_abbrev  0x00000101       0x45 ./cmath/powten.o
+ .debug_abbrev  0x00000146       0xa2 ./cmath/atof.o
+ .debug_abbrev  0x000001e8       0xef ./cmath/dtoa.o
+ .debug_abbrev  0x000002d7       0xcb main.o
+ .debug_abbrev  0x000003a2       0xe9 clock.o
+ .debug_abbrev  0x0000048b      0x191 power.o
+ .debug_abbrev  0x0000061c      0x1fa ports.o
+ .debug_abbrev  0x00000816      0x1c3 ticker.o
+ .debug_abbrev  0x000009d9      0x1e5 uart2.o
+ .debug_abbrev  0x00000bbe      0x1e5 uart3.o
+ .debug_abbrev  0x00000da3      0x246 printf2.o
+ .debug_abbrev  0x00000fe9      0x261 printf3.o
+ .debug_abbrev  0x0000124a      0x12f dump.o
+ .debug_abbrev  0x00001379      0x283 cli.o
+ .debug_abbrev  0x000015fc      0x149 dma.o
+ .debug_abbrev  0x00001745      0x2ce adc.o
+ .debug_abbrev  0x00001a13      0x1df ble.o
+ .debug_abbrev  0x00001bf2      0x271 sht15.o
+
+.debug_loc      0x00000000     0x25c9
+ .debug_loc     0x00000000      0x14a ./core/system_stm32l1xx.o
+ .debug_loc     0x0000014a      0x2f7 ./cmath/atof.o
+ .debug_loc     0x00000441      0x58d ./cmath/dtoa.o
+ .debug_loc     0x000009ce       0x4d power.o
+ .debug_loc     0x00000a1b      0x183 ports.o
+ .debug_loc     0x00000b9e       0x68 ticker.o
+ .debug_loc     0x00000c06       0xfb uart2.o
+ .debug_loc     0x00000d01       0xfb uart3.o
+ .debug_loc     0x00000dfc      0x654 printf2.o
+ .debug_loc     0x00001450      0x61a printf3.o
+ .debug_loc     0x00001a6a      0x1ad dump.o
+ .debug_loc     0x00001c17      0x516 cli.o
+ .debug_loc     0x0000212d       0xb7 adc.o
+ .debug_loc     0x000021e4      0x1b0 ble.o
+ .debug_loc     0x00002394      0x235 sht15.o
+
+.debug_aranges  0x00000000      0x258
+ .debug_aranges
+                0x00000000       0x20 ./core/system_stm32l1xx.o
+ .debug_aranges
+                0x00000020       0x18 ./cmath/powten.o
+ .debug_aranges
+                0x00000038       0x20 ./cmath/atof.o
+ .debug_aranges
+                0x00000058       0x20 ./cmath/dtoa.o
+ .debug_aranges
+                0x00000078       0x20 main.o
+ .debug_aranges
+                0x00000098       0x20 clock.o
+ .debug_aranges
+                0x000000b8       0x20 power.o
+ .debug_aranges
+                0x000000d8       0x20 ports.o
+ .debug_aranges
+                0x000000f8       0x20 ticker.o
+ .debug_aranges
+                0x00000118       0x20 uart2.o
+ .debug_aranges
+                0x00000138       0x20 uart3.o
+ .debug_aranges
+                0x00000158       0x20 printf2.o
+ .debug_aranges
+                0x00000178       0x20 printf3.o
+ .debug_aranges
+                0x00000198       0x20 dump.o
+ .debug_aranges
+                0x000001b8       0x20 cli.o
+ .debug_aranges
+                0x000001d8       0x20 dma.o
+ .debug_aranges
+                0x000001f8       0x20 adc.o
+ .debug_aranges
+                0x00000218       0x20 ble.o
+ .debug_aranges
+                0x00000238       0x20 sht15.o
+
+.debug_line     0x00000000     0x1b19
+ .debug_line    0x00000000      0x11c ./core/system_stm32l1xx.o
+ .debug_line    0x0000011c       0x2f ./cmath/powten.o
+ .debug_line    0x0000014b       0xda ./cmath/atof.o
+ .debug_line    0x00000225      0x10d ./cmath/dtoa.o
+ .debug_line    0x00000332      0x125 main.o
+ .debug_line    0x00000457       0xfb clock.o
+ .debug_line    0x00000552      0x161 power.o
+ .debug_line    0x000006b3      0x1a8 ports.o
+ .debug_line    0x0000085b      0x13b ticker.o
+ .debug_line    0x00000996      0x129 uart2.o
+ .debug_line    0x00000abf      0x129 uart3.o
+ .debug_line    0x00000be8      0x246 printf2.o
+ .debug_line    0x00000e2e      0x23b printf3.o
+ .debug_line    0x00001069      0x169 dump.o
+ .debug_line    0x000011d2      0x223 cli.o
+ .debug_line    0x000013f5       0xf8 dma.o
+ .debug_line    0x000014ed      0x1f9 adc.o
+ .debug_line    0x000016e6      0x1fa ble.o
+ .debug_line    0x000018e0      0x239 sht15.o
+
+.debug_str      0x00000000     0x1110
+ .debug_str     0x00000000      0x2b5 ./core/system_stm32l1xx.o
+                                0x302 (size before relaxing)
+ .debug_str     0x000002b5       0x38 ./cmath/powten.o
+                                0x10a (size before relaxing)
+ .debug_str     0x000002ed       0x2a ./cmath/atof.o
+                                0x1b3 (size before relaxing)
+ .debug_str     0x00000317       0x47 ./cmath/dtoa.o
+                                0x1dd (size before relaxing)
+ .debug_str     0x0000035e       0x90 main.o
+                                0x228 (size before relaxing)
+ .debug_str     0x000003ee       0x54 clock.o
+                                0x286 (size before relaxing)
+ .debug_str     0x00000442      0x137 power.o
+                                0x397 (size before relaxing)
+ .debug_str     0x00000579      0x14d ports.o
+                                0x3dc (size before relaxing)
+ .debug_str     0x000006c6      0x471 ticker.o
+                                0x700 (size before relaxing)
+ .debug_str     0x00000b37       0xa4 uart2.o
+                                0x69c (size before relaxing)
+ .debug_str     0x00000bdb       0x61 uart3.o
+                                0x69c (size before relaxing)
+ .debug_str     0x00000c3c       0xab printf2.o
+                                0x28b (size before relaxing)
+ .debug_str     0x00000ce7       0x13 printf3.o
+                                0x26a (size before relaxing)
+ .debug_str     0x00000cfa       0x44 dump.o
+                                0x232 (size before relaxing)
+ .debug_str     0x00000d3e       0xa4 cli.o
+                                0x2d7 (size before relaxing)
+ .debug_str     0x00000de2       0xf3 dma.o
+                                0x334 (size before relaxing)
+ .debug_str     0x00000ed5       0xe7 adc.o
+                                0x41d (size before relaxing)
+ .debug_str     0x00000fbc       0xa8 ble.o
+                                0x3a9 (size before relaxing)
+ .debug_str     0x00001064       0xac sht15.o
+                                0x31d (size before relaxing)
+
+.comment        0x00000000       0x70
+ .comment       0x00000000       0x70 ./core/system_stm32l1xx.o
+                                 0x71 (size before relaxing)
+ .comment       0x00000000       0x71 ./cmath/powten.o
+ .comment       0x00000000       0x71 ./cmath/atof.o
+ .comment       0x00000000       0x71 ./cmath/dtoa.o
+ .comment       0x00000000       0x71 main.o
+ .comment       0x00000000       0x71 clock.o
+ .comment       0x00000000       0x71 power.o
+ .comment       0x00000000       0x71 ports.o
+ .comment       0x00000000       0x71 ticker.o
+ .comment       0x00000000       0x71 uart2.o
+ .comment       0x00000000       0x71 uart3.o
+ .comment       0x00000000       0x71 printf2.o
+ .comment       0x00000000       0x71 printf3.o
+ .comment       0x00000000       0x71 dump.o
+ .comment       0x00000000       0x71 cli.o
+ .comment       0x00000000       0x71 dma.o
+ .comment       0x00000000       0x71 adc.o
+ .comment       0x00000000       0x71 ble.o
+ .comment       0x00000000       0x71 sht15.o
+
+.debug_frame    0x00000000      0xdf4
+ .debug_frame   0x00000000       0x48 ./core/system_stm32l1xx.o
+ .debug_frame   0x00000048       0x40 ./cmath/atof.o
+ .debug_frame   0x00000088       0x40 ./cmath/dtoa.o
+ .debug_frame   0x000000c8       0x28 main.o
+ .debug_frame   0x000000f0       0x60 clock.o
+ .debug_frame   0x00000150       0xc4 power.o
+ .debug_frame   0x00000214      0x160 ports.o
+ .debug_frame   0x00000374       0x6c ticker.o
+ .debug_frame   0x000003e0       0xa4 uart2.o
+ .debug_frame   0x00000484       0xa4 uart3.o
+ .debug_frame   0x00000528       0xd4 printf2.o
+ .debug_frame   0x000005fc       0xa4 printf3.o
+ .debug_frame   0x000006a0       0x40 dump.o
+ .debug_frame   0x000006e0      0x138 cli.o
+ .debug_frame   0x00000818       0x6c dma.o
+ .debug_frame   0x00000884      0x198 adc.o
+ .debug_frame   0x00000a1c      0x15c ble.o
+ .debug_frame   0x00000b78      0x1ac sht15.o
+ .debug_frame   0x00000d24       0x34 d:/gcc/bin/../lib/gcc/arm-none-eabi/4.9.3/../../../../arm-none-eabi/lib/armv7-m\libm.a(lib_a-s_modf.o)
+ .debug_frame   0x00000d58       0x4c d:/gcc/bin/../lib/gcc/arm-none-eabi/4.9.3/../../../../arm-none-eabi/lib/armv7-m\libg.a(lib_a-strchr.o)
+ .debug_frame   0x00000da4       0x20 d:/gcc/bin/../lib/gcc/arm-none-eabi/4.9.3/../../../../arm-none-eabi/lib/armv7-m\libg.a(lib_a-strlen.o)
+ .debug_frame   0x00000dc4       0x30 d:/gcc/bin/../lib/gcc/arm-none-eabi/4.9.3/../../../../arm-none-eabi/lib/armv7-m\libg.a(lib_a-strnlen.o)
+
+.debug_ranges   0x00000000      0x358
+ .debug_ranges  0x00000000       0x10 main.o
+ .debug_ranges  0x00000010       0x60 ports.o
+ .debug_ranges  0x00000070       0x38 ticker.o
+ .debug_ranges  0x000000a8       0x38 uart2.o
+ .debug_ranges  0x000000e0       0x38 uart3.o
+ .debug_ranges  0x00000118       0x18 printf2.o
+ .debug_ranges  0x00000130       0x18 printf3.o
+ .debug_ranges  0x00000148       0x28 dump.o
+ .debug_ranges  0x00000170       0x90 cli.o
+ .debug_ranges  0x00000200       0x48 adc.o
+ .debug_ranges  0x00000248      0x110 sht15.o

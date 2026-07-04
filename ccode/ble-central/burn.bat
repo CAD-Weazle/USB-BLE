@@ -1,0 +1,1 @@
+openocd -f stlink.cfg -c "program sunweb-master.hex reset exit"

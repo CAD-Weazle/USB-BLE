@@ -1,0 +1,1 @@
+D:\gcc\bin\arm-none-eabi-gcc-nm usb-ble.elf > f.map

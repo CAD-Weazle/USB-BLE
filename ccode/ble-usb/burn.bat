@@ -1,0 +1,1 @@
+D:\OpenOCD\bin\openocd -f stlink.cfg -c "program ble-usb.hex reset exit"

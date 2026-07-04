@@ -1,0 +1,1 @@
+D:\OpenOCD\bin\openocd -f stlink.cfg -c "program feasycom-ble.hex reset exit"
